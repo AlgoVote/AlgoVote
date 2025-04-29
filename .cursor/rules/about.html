@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>소개 및 후원 - 알고투표</title>
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <script>tailwind.config={theme:{extend:{colors:{primary:'#3449FF',secondary:'#666666'},borderRadius:{'none':'0px','sm':'4px',DEFAULT:'8px','md':'12px','lg':'16px','xl':'20px','2xl':'24px','3xl':'32px','full':'9999px','button':'8px'}}}}</script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+    <style>
+        :where([class^="ri-"])::before { content: "\f3c2"; }
+        body {
+            font-family: 'Pretendard', sans-serif;
+        }
+        .fade-in {
+            animation: fadeIn 1.2s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        input:focus {
+            outline: none;
+        }
+    </style>
+</head>
+<body class="bg-white min-h-screen">
+    <!-- Navigation Bar -->
+<header class="sticky top-0 z-50 bg-white border-b border-gray-100">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between items-center h-16">
+    <div class="flex-shrink-0">
+    <a href="/" class="text-2xl font-bold text-gray-900">알고투표</a>
+    </div>
+    <nav class="flex space-x-8">
+    <a href="/compare" class="text-gray-700 hover:text-primary transition-colors duration-200 font-medium">공약 비교</a>
+    <a href="/about" class="text-gray-700 hover:text-primary transition-colors duration-200 font-medium">알고투표 소개</a>
+    </nav>
+    </div>
+    </div>
+    </header>
+
+    <main class="pt-24 pb-16">
+        <!-- 인트로 섹션 -->
+        <section class="container mx-auto px-4 md:px-6 py-16 md:py-20 text-center fade-in">
+            <blockquote class="text-2xl md:text-4xl font-bold text-gray-800 max-w-3xl mx-auto">
+                "더 나은 선택을 돕고 싶었습니다."
+            </blockquote>
+        </section>
+
+        <!-- 서비스 소개 섹션 -->
+        <section class="container mx-auto px-4 md:px-6 py-12 md:py-16 fade-in">
+            <div class="max-w-3xl mx-auto">
+                <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                    알고투표는 정확하고 신뢰할 수 있는 정보를 통해 사용자가 스스로 판단할 수 있도록 돕기 위해 만들어졌습니다. 정치적 중립성과 객관성을 최우선으로 생각합니다.
+                </p>
+                <p class="text-lg text-gray-700 leading-relaxed">
+                    선거 시기마다 쏟아지는 정보의 홍수 속에서, 유권자들이 각 후보의 정책과 공약을 쉽게 비교하고 이해할 수 있는 플랫폼을 제공하고자 합니다. 모든 시민이 더 나은 정보에 기반한 선택을 할 수 있도록 돕는 것이 저희의 목표입니다.
+                </p>
+            </div>
+        </section>
+
+        <!-- 제작진 소개 섹션 -->
+        <section class="container mx-auto px-4 md:px-6 py-12 md:py-16 fade-in">
+            <h2 class="text-2xl font-bold text-gray-800 mb-8 text-center md:text-left">제작진 소개</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+                <!-- 팀원 1 -->
+                <div class="bg-white rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 flex items-center justify-center bg-gray-100 rounded-full overflow-hidden">
+                            <i class="ri-user-smile-line ri-lg text-gray-600"></i>
+                        </div>
+                        <div class="ml-4">
+                            <h3 class="font-bold text-lg text-gray-800">Dino</h3>
+                            <p class="text-gray-600">기획 · 디자인 · 개발</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-500 italic">"혼란 속에서도 스스로 선택할 수 있도록."</p>
+                </div>
+
+                <!-- 팀원 2 -->
+                <div class="bg-white rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 flex items-center justify-center bg-gray-100 rounded-full overflow-hidden">
+                            <i class="ri-user-smile-line ri-lg text-gray-600"></i>
+                        </div>
+                        <div class="ml-4">
+                            <h3 class="font-bold text-lg text-gray-800">Uri</h3>
+                            <p class="text-gray-600">데이터 리서치 · 정책 분석</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-500 italic">"정확한 정보가 좋은 선택을 만듭니다."</p>
+                </div>
+
+                <!-- 팀원 3 -->
+                <div class="bg-white rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 flex items-center justify-center bg-gray-100 rounded-full overflow-hidden">
+                            <i class="ri-user-smile-line ri-lg text-gray-600"></i>
+                        </div>
+                        <div class="ml-4">
+                            <h3 class="font-bold text-lg text-gray-800">Mina</h3>
+                            <p class="text-gray-600">UX/UI 디자이너</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-500 italic">"공약을 쉽고 명확하게 전달하고 싶었습니다."</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 후원 안내 섹션 -->
+        <section class="bg-gray-50 py-12 md:py-16 mt-8 fade-in">
+            <div class="container mx-auto px-4 md:px-6 max-w-3xl">
+                <div class="text-center mb-8">
+                    <h2 class="text-xl md:text-2xl font-bold text-gray-800 mb-4">작은 응원이 다음 프로젝트를 만듭니다.</h2>
+                    <p class="text-gray-600 mb-6">
+                        알고투표는 비영리 프로젝트로 운영되고 있습니다. 여러분의 작은 후원이 더 나은 민주주의 도구를 만드는 데 큰 힘이 됩니다.
+                    </p>
+                    <button class="bg-white text-gray-800 border border-gray-300 hover:bg-gray-100 transition-colors px-6 py-3 rounded-button font-medium flex items-center mx-auto whitespace-nowrap">
+                        <div class="w-6 h-6 flex items-center justify-center mr-2">
+                            <i class="ri-cup-line"></i>
+                        </div>
+                        Buy Me a Coffee
+                    </button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 하단 푸터 -->
+    <footer class="border-t border-gray-200 py-8 mt-auto">
+        <div class="container mx-auto px-4 md:px-6 text-center">
+            <p class="text-secondary text-sm mb-2">© 2025 알고투표. All rights reserved.</p>
+            <p class="text-secondary text-sm">※ 알고투표는 특정 후보를 지지하거나 반대하지 않습니다.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 페이지 로드 시 애니메이션 효과
+            const fadeElements = document.querySelectorAll('.fade-in');
+            fadeElements.forEach((el, index) => {
+                setTimeout(() => {
+                    el.style.opacity = '1';
+                }, 200 * index);
+            });
+        });
+    </script>
+</body>
+</html>

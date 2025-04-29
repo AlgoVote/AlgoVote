@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>후보자 상세 정보 - 알고투표</title>
+<script src="https://cdn.tailwindcss.com/3.4.16"></script>
+<script>tailwind.config={theme:{extend:{colors:{primary:'#3449FF',secondary:''},borderRadius:{'none':'0px','sm':'4px',DEFAULT:'8px','md':'12px','lg':'16px','xl':'20px','2xl':'24px','3xl':'32px','full':'9999px','button':'8px'}}}}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+<style>
+:where([class^="ri-"])::before { content: "\f3c2"; }
+body {
+    font-family: 'Pretendard', 'Inter', 'Roboto', sans-serif;
+    color: #1E1E1E;
+    background-color: #F9FAFC;
+}
+.fade-in {
+    animation: fadeIn 0.3s ease-in;
+}
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+.tab-active {
+    color: #3449FF;
+    border-bottom: 2px solid #3449FF;
+}
+.pledge-card:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    transition: box-shadow 0.2s ease-in-out;
+}
+.btn-primary {
+    transition: all 0.2s ease-out;
+}
+.btn-primary:hover {
+    transform: scale(1.02);
+    filter: brightness(0.95);
+}
+.btn-secondary {
+    transition: all 0.2s ease-out;
+}
+.btn-secondary:hover {
+    transform: scale(1.02);
+    background-color: rgba(52, 73, 255, 0.05);
+}
+.pledge-detail-btn:hover {
+    background-color: rgba(52, 73, 255, 0.05);
+}
+.accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+}
+.accordion-open .accordion-content {
+    max-height: 1000px;
+}
+.accordion-icon {
+    transition: transform 0.3s ease;
+}
+.accordion-open .accordion-icon {
+    transform: rotate(180deg);
+}
+</style>
+</head>
+<body class="min-h-screen">
+<!-- Navigation Bar -->
+<header class="sticky top-0 z-50 bg-white border-b border-gray-100">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between items-center h-16">
+    <div class="flex-shrink-0">
+    <a href="/" class="text-2xl font-bold text-gray-900">알고투표</a>
+    </div>
+    <nav class="flex space-x-8">
+    <a href="/compare" class="text-gray-700 hover:text-primary transition-colors duration-200 font-medium">공약 비교</a>
+    <a href="/about" class="text-gray-700 hover:text-primary transition-colors duration-200 font-medium">알고투표 소개</a>
+    </nav>
+    </div>
+    </div>
+    </header>
+
+
+
+<main class="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 py-8 fade-in">
+    <!-- 후보 기본 정보 섹션 -->
+    <section class="bg-white rounded-2xl shadow-sm p-6 mb-8">
+        <div class="flex flex-col items-center md:flex-row md:items-start gap-8">
+            <div class="w-40 h-40 rounded-md overflow-hidden flex-shrink-0 border border-gray-100">
+                <img src="https://readdy.ai/api/search-image?query=professional%2520headshot%2520photo%2520of%2520a%2520korean%2520politician%2520man%2520in%2520his%2520early%252050s%2520wearing%2520a%2520formal%2520suit%252C%2520looking%2520confident%2520and%2520approachable%252C%2520high%2520quality%2520studio%2520lighting%252C%2520clean%2520background&width=400&height=400&seq=1&orientation=squarish" alt="김민석 후보" class="w-full h-full object-cover">
+            </div>
+            <div class="flex-grow text-center md:text-left">
+                <h1 class="text-3xl font-bold mb-2">김민석</h1>
+                <div class="text-gray-600 mb-4">더불어민주당 | 54세 | 서울특별시 출생</div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 border-t border-gray-200 pt-4">
+                    <div>
+                        <h3 class="text-sm text-gray-500 mb-1">최종 학력</h3>
+                        <p>서울대학교 정치외교학과 졸업 (학사)</p>
+                        <p>하버드대학교 케네디스쿨 행정학 석사</p>
+                    </div>
+                    <div>
+                        <h3 class="text-sm text-gray-500 mb-1">주요 경력</h3>
+                        <ul class="space-y-1">
+                            <li>• 제21대 국회의원</li>
+                            <li>• 전 행정안전부 차관</li>
+                            <li>• 전 청와대 정무수석</li>
+                            <li>• 전 민주정책연구원 원장</li>
+                            <li>• 전 서울시 정무부시장</li>
+                        </ul>
+                    </div>
+                </div>
+                <a href="https://www.candidate-website.kr" target="_blank" class="text-primary hover:underline inline-flex items-center mt-4">
+                    <span>후보자 공식 웹사이트</span>
+                    <i class="ri-external-link-line ml-1"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 핵심 슬로건 섹션 -->
+    <section class="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl p-8 mb-8 text-center">
+        <h2 class="text-2xl md:text-3xl font-bold text-gray-800 mb-2">
+            "국민의 삶을 책임지는 정치, 미래를 여는 변화"
+        </h2>
+        <p class="text-gray-600">국민과 함께 더 나은 미래를 만들어 나가겠습니다</p>
+    </section>
+    <!-- 10대 핵심 공약 섹션 -->
+    <section class="bg-white rounded-2xl shadow-sm p-6 mb-8">
+        <h2 class="text-2xl font-bold mb-6">10대 핵심 공약</h2>
+        <div class="space-y-4">
+            <div class="pledge-card p-4 border border-gray-100 rounded-lg hover:bg-gray-50 transition-all">
+                <div class="flex">
+                    <div class="flex-shrink-0 w-8 h-8 bg-primary text-white rounded-full flex items-center justify-center mr-3">
+                        <span class="font-semibold">1</span>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-lg">청년 일자리 창출 및 주거 안정 지원</h3>
+                        <p class="text-gray-600 mt-1">청년 창업 지원금 확대 및 청년 전용 임대주택 공급 확대로 청년 세대의 경제적 자립 지원</p>
+                        <button class="pledge-detail-btn text-primary border border-primary !rounded-button px-3 py-1 text-sm inline-flex items-center mt-2 whitespace-nowrap" data-target="pledge-1">
+                            <span>공약 전문 보기</span>
+                            <i class="ri-arrow-right-line ml-1"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="pledge-card p-4 border border-gray-100 rounded-lg hover:bg-gray-50 transition-all">
+                <div class="flex">
+                    <div class="flex-shrink-0 w-8 h-8 bg-primary text-white rounded-full flex items-center justify-center mr-3">
+                        <span class="font-semibold">2</span>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-lg">중소기업 및 소상공인 지원 강화</h3>
+                        <p class="text-gray-600 mt-1">디지털 전환 지원 및 세제 혜택 확대를 통한 지역 경제 활성화</p>
+                        <button class="pledge-detail-btn text-primary border border-primary !rounded-button px-3 py-1 text-sm inline-flex items-center mt-2 whitespace-nowrap" data-target="pledge-2">
+                            <span>공약 전문 보기</span>
+                            <i class="ri-arrow-right-line ml-1"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="pledge-card p-4 border border-gray-100 rounded-lg hover:bg-gray-50 transition-all">
+                <div class="flex">
+                    <div class="flex-shrink-0 w-8 h-8 bg-primary text-white rounded-full flex items-center justify-center mr-3">
+                        <span class="font-semibold">3</span>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-lg">교육 격차 해소 및 공교육 강화</h3>
+                        <p class="text-gray-600 mt-1">지역 간 교육 격차 해소를 위한 교육 인프라 확충 및 디지털 교육 환경 개선</p>
+                        <button class="pledge-detail-btn text-primary border border-primary !rounded-button px-3 py-1 text-sm inline-flex items-center mt-2 whitespace-nowrap" data-target="pledge-3">
+                            <span>공약 전문 보기</span>
+                            <i class="ri-arrow-right-line ml-1"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="pledge-card p-4 border border-gray-100 rounded-lg hover:bg-gray-50 transition-all">
+                <div class="flex">
+                    <div class="flex-shrink-0 w-8 h-8 bg-primary text-white rounded-full flex items-center justify-center mr-3">
+                        <span class="font-semibold">4</span>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-lg">고령화 사회 대비 노인 복지 확대</h3>
+                        <p class="text-gray-600 mt-1">노인 일자리 창출 및 돌봄 서비스 확대를 통한 어르신 삶의 질 향상</p>
+                        <button class="pledge-detail-btn text-primary border border-primary !rounded-button px-3 py-1 text-sm inline-flex items-center mt-2 whitespace-nowrap" data-target="pledge-4">
+                            <span>공약 전문 보기</span>
+                            <i class="ri-arrow-right-line ml-1"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="pledge-card p-4 border border-gray-100 rounded-lg hover:bg-gray-50 transition-all">
+                <div class="flex">
+                    <div class="flex-shrink-0 w-8 h-8 bg-primary text-white rounded-full flex items-center justify-center mr-3">
+                        <span class="font-semibold">5</span>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-lg">환경 보전 및 탄소중립 실현</h3>
+                        <p class="text-gray-600 mt-1">친환경 에너지 인프라 구축 및 녹지 공간 확충을 통한 지속가능한 도시 환경 조성</p>
+                        <button class="pledge-detail-btn text-primary border border-primary !rounded-button px-3 py-1 text-sm inline-flex items-center mt-2 whitespace-nowrap" data-target="pledge-5">
+                            <span>공약 전문 보기</span>
+                            <i class="ri-arrow-right-line ml-1"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="pledge-card p-4 border border-gray-100 rounded-lg hover:bg-gray-50 transition-all">
+                <div class="flex">
+                    <div class="flex-shrink-0 w-8 h-8 bg-primary text-white rounded-full flex items-center justify-center mr-3">
+                        <span class="font-semibold">6</span>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-lg">보육 및 육아 지원 강화</h3>
+                        <p class="text-gray-600 mt-1">국공립 어린이집 확충 및 육아 지원 서비스 강화를 통한 저출산 문제 해결</p>
+                        <button class="pledge-detail-btn text-primary border border-primary !rounded-button px-3 py-1 text-sm inline-flex items-center mt-2 whitespace-nowrap" data-target="pledge-6">
+                            <span>공약 전문 보기</span>
+                            <i class="ri-arrow-right-line ml-1"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="pledge-card p-4 border border-gray-100 rounded-lg hover:bg-gray-50 transition-all">
+                <div class="flex">
+                    <div class="flex-shrink-0 w-8 h-8 bg-primary text-white rounded-full flex items-center justify-center mr-3">
+                        <span class="font-semibold">7</span>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-lg">디지털 혁신 및 스마트시티 구축</h3>
+                        <p class="text-gray-600 mt-1">디지털 인프라 확충 및 스마트시티 기술 도입을 통한 도시 경쟁력 강화</p>
+                        <button class="pledge-detail-btn text-primary border border-primary !rounded-button px-3 py-1 text-sm inline-flex items-center mt-2 whitespace-nowrap" data-target="pledge-7">
+                            <span>공약 전문 보기</span>
+                            <i class="ri-arrow-right-line ml-1"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="pledge-card p-4 border border-gray-100 rounded-lg hover:bg-gray-50 transition-all">
+                <div class="flex">
+                    <div class="flex-shrink-0 w-8 h-8 bg-primary text-white rounded-full flex items-center justify-center mr-3">
+                        <span class="font-semibold">8</span>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-lg">문화예술 지원 및 지역 관광 활성화</h3>
+                        <p class="text-gray-600 mt-1">지역 문화예술 인프라 확충 및 관광 자원 개발을 통한 지역 경제 활성화</p>
+                        <button class="pledge-detail-btn text-primary border border-primary !rounded-button px-3 py-1 text-sm inline-flex items-center mt-2 whitespace-nowrap" data-target="pledge-8">
+                            <span>공약 전문 보기</span>
+                            <i class="ri-arrow-right-line ml-1"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="pledge-card p-4 border border-gray-100 rounded-lg hover:bg-gray-50 transition-all">
+                <div class="flex">
+                    <div class="flex-shrink-0 w-8 h-8 bg-primary text-white rounded-full flex items-center justify-center mr-3">
+                        <span class="font-semibold">9</span>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-lg">장애인 복지 및 사회 통합 지원</h3>
+                        <p class="text-gray-600 mt-1">장애인 이동권 보장 및 편의시설 확충을 통한 사회 통합 실현</p>
+                        <button class="pledge-detail-btn text-primary border border-primary !rounded-button px-3 py-1 text-sm inline-flex items-center mt-2 whitespace-nowrap" data-target="pledge-9">
+                            <span>공약 전문 보기</span>
+                            <i class="ri-arrow-right-line ml-1"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="pledge-card p-4 border border-gray-100 rounded-lg hover:bg-gray-50 transition-all">
+                <div class="flex">
+                    <div class="flex-shrink-0 w-8 h-8 bg-primary text-white rounded-full flex items-center justify-center mr-3">
+                        <span class="font-semibold">10</span>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-lg">안전한 도시 환경 조성</h3>
+                        <p class="text-gray-600 mt-1">범죄 예방 및 재난 대응 시스템 강화를 통한 안전한 도시 환경 조성</p>
+                        <button class="pledge-detail-btn text-primary border border-primary !rounded-button px-3 py-1 text-sm inline-flex items-center mt-2 whitespace-nowrap" data-target="pledge-10">
+                            <span>공약 전문 보기</span>
+                            <i class="ri-arrow-right-line ml-1"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="mt-6 text-center">
+            <button id="view-all-pledges" class="bg-primary text-white py-2 px-6 !rounded-button font-medium hover:bg-opacity-90 transition-all whitespace-nowrap">
+                10대 공약 전체 보기
+            </button>
+        </div>
+    </section>
+
+    <!-- 세부 공약 상세 섹션 -->
+    <section id="detailed-pledges" class="bg-white rounded-2xl shadow-sm p-6 mb-8">
+        <h2 class="text-2xl font-bold mb-6">세부 공약 상세</h2>
+        
+        <div class="space-y-4">
+            <!-- 공약 1 -->
+            <div class="accordion border border-gray-200 rounded-lg">
+                <div class="accordion-header flex justify-between items-center p-4 cursor-pointer">
+                    <h3 class="font-semibold text-lg">청년 일자리 창출 및 주거 안정 지원</h3>
+                    <div class="w-6 h-6 flex items-center justify-center">
+                        <i class="ri-arrow-down-s-line accordion-icon"></i>
+                    </div>
+                </div>
+                <div class="accordion-content px-4 pb-4">
+                    <div class="border-t border-gray-100 pt-4">
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div>
+                                <h4 class="font-medium text-gray-700 mb-2">분야</h4>
+                                <p class="text-gray-600">청년/일자리</p>
+                            </div>
+                            <div class="md:col-span-2">
+                                <h4 class="font-medium text-gray-700 mb-2">목표 및 추진 배경</h4>
+                                <p class="text-gray-600">청년 실업률 증가와 주거비 부담 증가로 인한 청년 세대의 경제적 어려움을 해소하고, 청년들의 사회 진출과 자립을 지원하기 위함</p>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-4">
+                            <h4 class="font-medium text-gray-700 mb-2">주요 추진 내용</h4>
+                            <ul class="space-y-2 text-gray-600">
+                                <li>1. 청년 창업 지원금 연간 3천만원까지 확대 및 창업 인큐베이팅 센터 확충</li>
+                                <li>2. 청년 전용 임대주택 5년간 10만호 공급 및 청년 주거비 지원 확대</li>
+                                <li>3. 청년 일자리 창출을 위한 기업 인센티브 제도 도입</li>
+                                <li>4. 청년 디지털 역량 강화 교육 프로그램 확대</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                            <div>
+                                <h4 class="font-medium text-gray-700 mb-2">이행 방법</h4>
+                                <p class="text-gray-600">청년기본법 개정을 통한 청년 지원 확대, 주택법 개정을 통한 청년 주택 공급 확대, 조세특례제한법 개정을 통한 청년 고용 기업 세제 혜택 확대</p>
+                            </div>
+                            <div>
+                                <h4 class="font-medium text-gray-700 mb-2">이행 기간</h4>
+                                <p class="text-gray-600">취임 즉시 추진, 임기 내 단계적 확대</p>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-4">
+                            <h4 class="font-medium text-gray-700 mb-2">재원 조달 방안</h4>
+                            <p class="text-gray-600">청년 지원 특별 예산 편성(연간 5천억원), 주택도시기금 활용, 민간 투자 유치를 통한 청년 창업 지원 펀드 조성</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 공약 2 -->
+            <div class="accordion border border-gray-200 rounded-lg">
+                <div class="accordion-header flex justify-between items-center p-4 cursor-pointer">
+                    <h3 class="font-semibold text-lg">중소기업 및 소상공인 지원 강화</h3>
+                    <div class="w-6 h-6 flex items-center justify-center">
+                        <i class="ri-arrow-down-s-line accordion-icon"></i>
+                    </div>
+                </div>
+                <div class="accordion-content px-4 pb-4">
+                    <div class="border-t border-gray-100 pt-4">
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div>
+                                <h4 class="font-medium text-gray-700 mb-2">분야</h4>
+                                <p class="text-gray-600">경제/산업</p>
+                            </div>
+                            <div class="md:col-span-2">
+                                <h4 class="font-medium text-gray-700 mb-2">목표 및 추진 배경</h4>
+                                <p class="text-gray-600">코로나19 이후 어려움을 겪고 있는 중소기업과 소상공인의 경영 안정과 경쟁력 강화를 통한 지역 경제 활성화</p>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-4">
+                            <h4 class="font-medium text-gray-700 mb-2">주요 추진 내용</h4>
+                            <ul class="space-y-2 text-gray-600">
+                                <li>1. 중소기업 디지털 전환 지원 사업 확대(연간 지원 기업 1만개)</li>
+                                <li>2. 소상공인 온라인 판로 지원 및 배달 앱 수수료 인하 지원</li>
+                                <li>3. 중소기업 및 소상공인 세제 혜택 확대</li>
+                                <li>4. 지역 화폐 활성화를 통한 지역 경제 순환 강화</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                            <div>
+                                <h4 class="font-medium text-gray-700 mb-2">이행 방법</h4>
+                                <p class="text-gray-600">중소기업기본법 및 소상공인 보호법 개정, 지역 화폐 활성화를 위한 조례 제정, 중소기업 디지털 전환 지원 특별법 제정</p>
+                            </div>
+                            <div>
+                                <h4 class="font-medium text-gray-700 mb-2">이행 기간</h4>
+                                <p class="text-gray-600">취임 후 6개월 내 관련 법안 발의, 임기 내 단계적 확대</p>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-4">
+                            <h4 class="font-medium text-gray-700 mb-2">재원 조달 방안</h4>
+                            <p class="text-gray-600">중소기업 지원 특별 예산 편성(연간 1조원), 디지털 전환 지원 기금 조성, 민간 투자 유치</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 공약 3 -->
+            <div class="accordion border border-gray-200 rounded-lg">
+                <div class="accordion-header flex justify-between items-center p-4 cursor-pointer">
+                    <h3 class="font-semibold text-lg">교육 격차 해소 및 공교육 강화</h3>
+                    <div class="w-6 h-6 flex items-center justify-center">
+                        <i class="ri-arrow-down-s-line accordion-icon"></i>
+                    </div>
+                </div>
+                <div class="accordion-content px-4 pb-4">
+                    <div class="border-t border-gray-100 pt-4">
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div>
+                                <h4 class="font-medium text-gray-700 mb-2">분야</h4>
+                                <p class="text-gray-600">교육</p>
+                            </div>
+                            <div class="md:col-span-2">
+                                <h4 class="font-medium text-gray-700 mb-2">목표 및 추진 배경</h4>
+                                <p class="text-gray-600">지역 간, 계층 간 교육 격차 심화로 인한 교육 불평등 해소 및 공교육 경쟁력 강화</p>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-4">
+                            <h4 class="font-medium text-gray-700 mb-2">주요 추진 내용</h4>
+                            <ul class="space-y-2 text-gray-600">
+                                <li>1. 교육 취약 지역 학교 시설 및 교육 환경 개선</li>
+                                <li>2. 디지털 교육 인프라 확충 및 교육 콘텐츠 개발</li>
+                                <li>3. 교육 소외계층 맞춤형 교육 지원 확대</li>
+                                <li>4. 교사 역량 강화 및 처우 개선</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                            <div>
+                                <h4 class="font-medium text-gray-700 mb-2">이행 방법</h4>
+                                <p class="text-gray-600">교육기본법 및 초중등교육법 개정, 교육 격차 해소를 위한 특별법 제정, 교육 예산 확대</p>
+                            </div>
+                            <div>
+                                <h4 class="font-medium text-gray-700 mb-2">이행 기간</h4>
+                                <p class="text-gray-600">취임 후 1년 내 관련 법안 발의, 임기 내 단계적 확대</p>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-4">
+                            <h4 class="font-medium text-gray-700 mb-2">재원 조달 방안</h4>
+                            <p class="text-gray-600">교육 예산 확대(GDP 대비 5% 이상), 교육 격차 해소 특별 기금 조성, 민간 기업의 교육 기부 활성화</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- 최근 발언 요약 섹션 -->
+    <section class="bg-white rounded-2xl shadow-sm p-6 mb-8">
+        <h2 class="text-2xl font-bold mb-6">최근 발언 요약</h2>
+        <div class="space-y-6">
+            <div class="bg-gray-50 p-5 rounded-lg border-l-4 border-primary">
+                <p class="italic text-gray-700">"경제 회복과 일자리 창출이 최우선 과제입니다. 중소기업과 소상공인의 경쟁력 강화를 통해 지역 경제를 활성화하고, 양질의 일자리를 만들어 나가겠습니다."</p>
+                <p class="text-sm text-gray-500 mt-3">- 2025년 4월 15일, KBS 토론회</p>
+            </div>
+            
+            <div class="bg-gray-50 p-5 rounded-lg border-l-4 border-primary">
+                <p class="italic text-gray-700">"청년들이 꿈을 펼칠 수 있는 환경을 만드는 것이 중요합니다. 청년 창업 지원과 주거 안정 정책을 통해 청년들의 미래를 지원하고, 저출산 문제 해결에도 기여하겠습니다."</p>
+                <p class="text-sm text-gray-500 mt-3">- 2025년 4월 20일, MBC 인터뷰</p>
+            </div>
+            
+            <div class="bg-gray-50 p-5 rounded-lg border-l-4 border-primary">
+                <p class="italic text-gray-700">"교육은 미래를 위한 투자입니다. 지역 간 교육 격차를 해소하고, 모든 학생들이 질 높은 교육을 받을 수 있도록 공교육을 강화하겠습니다."</p>
+                <p class="text-sm text-gray-500 mt-3">- 2025년 4월 22일, 교육정책 토론회</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 후보 Q&A 섹션 -->
+    <section class="bg-white rounded-2xl shadow-sm p-6 mb-8">
+        <h2 class="text-2xl font-bold mb-6">후보 Q&A</h2>
+        <div class="space-y-6">
+            <div class="p-5 border border-gray-100 rounded-lg">
+                <div class="flex items-start mb-4">
+                    <div class="w-8 h-8 bg-primary text-white rounded-full flex items-center justify-center mr-3 flex-shrink-0">
+                        <span class="font-semibold">Q</span>
+                    </div>
+                    <p class="font-medium text-gray-800">당선되면 가장 먼저 추진할 정책은 무엇인가요?</p>
+                </div>
+                <div class="flex items-start pl-11">
+                    <div class="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center mr-3 flex-shrink-0">
+                        <span class="font-semibold text-gray-700">A</span>
+                    </div>
+                    <p class="text-gray-700">경제 회복과 일자리 창출을 위한 정책을 가장 먼저 추진하겠습니다. 특히 코로나19로 어려움을 겪고 있는 중소기업과 소상공인을 위한 지원 정책을 강화하고, 청년 일자리 창출을 위한 정책을 적극적으로 추진하겠습니다. 또한 디지털 전환 지원을 통해 기업의 경쟁력을 강화하고, 새로운 산업 생태계를 조성하여 지속가능한 경제 성장의 기반을 마련하겠습니다.</p>
+                </div>
+            </div>
+            
+            <div class="p-5 border border-gray-100 rounded-lg">
+                <div class="flex items-start mb-4">
+                    <div class="w-8 h-8 bg-primary text-white rounded-full flex items-center justify-center mr-3 flex-shrink-0">
+                        <span class="font-semibold">Q</span>
+                    </div>
+                    <p class="font-medium text-gray-800">지역 경제 활성화를 위한 구체적인 방안은 무엇인가요?</p>
+                </div>
+                <div class="flex items-start pl-11">
+                    <div class="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center mr-3 flex-shrink-0">
+                        <span class="font-semibold text-gray-700">A</span>
+                    </div>
+                    <p class="text-gray-700">지역 경제 활성화를 위해 다양한 정책을 추진하겠습니다. 첫째, 지역 화폐 활성화를 통해 지역 내 소비를 촉진하고 지역 경제 순환을 강화하겠습니다. 둘째, 지역 특화 산업 육성을 통해 지역 경제의 경쟁력을 강화하겠습니다. 셋째, 소상공인 디지털 전환 지원을 통해 온라인 판로를 확대하고 경쟁력을 강화하겠습니다. 넷째, 지역 관광 자원 개발을 통해 관광 산업을 활성화하고 지역 경제에 활력을 불어넣겠습니다.</p>
+                </div>
+            </div>
+            
+            <div class="p-5 border border-gray-100 rounded-lg">
+                <div class="flex items-start mb-4">
+                    <div class="w-8 h-8 bg-primary text-white rounded-full flex items-center justify-center mr-3 flex-shrink-0">
+                        <span class="font-semibold">Q</span>
+                    </div>
+                    <p class="font-medium text-gray-800">교육 격차 해소를 위한 정책은 무엇인가요?</p>
+                </div>
+                <div class="flex items-start pl-11">
+                    <div class="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center mr-3 flex-shrink-0">
+                        <span class="font-semibold text-gray-700">A</span>
+                    </div>
+                    <p class="text-gray-700">교육 격차 해소를 위해 다양한 정책을 추진하겠습니다. 첫째, 교육 취약 지역 학교 시설 및 교육 환경 개선을 통해 지역 간 교육 격차를 해소하겠습니다. 둘째, 디지털 교육 인프라 확충 및 교육 콘텐츠 개발을 통해 모든 학생들이 질 높은 교육을 받을 수 있도록 하겠습니다. 셋째, 교육 소외계층 맞춤형 교육 지원 확대를 통해 계층 간 교육 격차를 해소하겠습니다. 넷째, 교사 역량 강화 및 처우 개선을 통해 공교육의 질을 높이겠습니다.</p>
+                </div>
+            </div>
+            
+            <div class="p-5 border border-gray-100 rounded-lg">
+                <div class="flex items-start mb-4">
+                    <div class="w-8 h-8 bg-primary text-white rounded-full flex items-center justify-center mr-3 flex-shrink-0">
+                        <span class="font-semibold">Q</span>
+                    </div>
+                    <p class="font-medium text-gray-800">환경 보전과 탄소중립 실현을 위한 계획은 무엇인가요?</p>
+                </div>
+                <div class="flex items-start pl-11">
+                    <div class="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center mr-3 flex-shrink-0">
+                        <span class="font-semibold text-gray-700">A</span>
+                    </div>
+                    <p class="text-gray-700">환경 보전과 탄소중립 실현을 위해 다양한 정책을 추진하겠습니다. 첫째, 친환경 에너지 인프라 구축을 통해 재생에너지 비중을 확대하겠습니다. 둘째, 녹지 공간 확충을 통해 도시 환경을 개선하고 탄소 흡수원을 확대하겠습니다. 셋째, 친환경 교통 수단 확대를 통해 교통 분야 탄소 배출을 줄이겠습니다. 넷째, 자원 순환 체계 구축을 통해 폐기물 발생을 줄이고 재활용률을 높이겠습니다. 이를 통해 2050년 탄소중립 목표 달성에 기여하겠습니다.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 하단 버튼 영역 -->
+    <div class="flex flex-col sm:flex-row justify-center gap-4 mt-10 mb-6">
+        <a href="/compare" class="btn-primary bg-primary text-white py-3 px-8 !rounded-button text-center font-medium whitespace-nowrap">
+            비교하기
+        </a>
+        <a href="/" class="btn-secondary border border-primary text-primary py-3 px-8 !rounded-button text-center font-medium whitespace-nowrap">
+            뒤로가기
+        </a>
+    </div>
+    
+    <div class="text-center text-xs text-gray-500 mb-10">
+        정보 출처: <a href="https://www.nec.go.kr" target="_blank" class="text-primary hover:underline">중앙선거관리위원회</a>, 2025.04.27 기준
+    </div>
+</main>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // 아코디언 기능
+    const accordions = document.querySelectorAll('.accordion');
+    
+    accordions.forEach(accordion => {
+        const header = accordion.querySelector('.accordion-header');
+        header.addEventListener('click', function() {
+            accordion.classList.toggle('accordion-open');
+        });
+    });
+    
+    // 공약 상세 보기 버튼
+    const pledgeDetailBtns = document.querySelectorAll('.pledge-detail-btn');
+    const detailedPledgesSection = document.getElementById('detailed-pledges');
+    
+    pledgeDetailBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            const targetId = this.getAttribute('data-target');
+            const targetIndex = parseInt(targetId.split('-')[1]) - 1;
+            
+            // 해당 섹션으로 스크롤
+            detailedPledgesSection.scrollIntoView({ behavior: 'smooth' });
+            
+            // 해당 아코디언 열기
+            setTimeout(() => {
+                if (accordions[targetIndex]) {
+                    accordions[targetIndex].classList.add('accordion-open');
+                }
+            }, 500);
+        });
+    });
+    
+    // 10대 공약 전체 보기 버튼
+    const viewAllPledgesBtn = document.getElementById('view-all-pledges');
+    
+    viewAllPledgesBtn.addEventListener('click', function() {
+        detailedPledgesSection.scrollIntoView({ behavior: 'smooth' });
+    });
+});
+</script>
+</body>
+</html>

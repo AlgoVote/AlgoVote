@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>알고투표 - 정확한 정보를 바탕으로, 현명한 선택을</title>
+<script src="https://cdn.tailwindcss.com/3.4.16"></script>
+<script>tailwind.config={theme:{extend:{colors:{primary:'#3449FF',secondary:'#FFC400'},borderRadius:{'none':'0px','sm':'4px',DEFAULT:'8px','md':'12px','lg':'16px','xl':'20px','2xl':'24px','3xl':'32px','full':'9999px','button':'8px'}}}}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+<style>
+:where([class^="ri-"])::before { content: "\f3c2"; }
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+* {
+font-family: 'Pretendard', 'Inter', 'Roboto', sans-serif;
+}
+.fade-in {
+animation: fadeIn 1.5s ease-in-out;
+}
+@keyframes fadeIn {
+from { opacity: 0; transform: translateY(20px); }
+to { opacity: 1; transform: translateY(0); }
+}
+.card-hover {
+transition: all 0.3s ease;
+}
+.card-hover:hover {
+transform: scale(1.02);
+box-shadow: 0px 4px 8px rgba(0,0,0,0.05);
+}
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+-webkit-appearance: none;
+margin: 0;
+}
+</style>
+</head>
+<body class="bg-white min-h-screen">
+<!-- Navigation Bar -->
+<header class="sticky top-0 z-50 bg-white border-b border-gray-100">
+<div class="container mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex justify-between items-center h-16">
+<div class="flex-shrink-0">
+<a href="/" class="text-2xl font-bold text-gray-900">알고투표</a>
+</div>
+<nav class="flex space-x-8">
+<a href="/compare" class="text-gray-700 hover:text-primary transition-colors duration-200 font-medium">공약 비교</a>
+<a href="/about" class="text-gray-700 hover:text-primary transition-colors duration-200 font-medium">알고투표 소개</a>
+</nav>
+</div>
+</div>
+</header>
+<!-- Hero Section -->
+<section class="py-20 px-4 sm:px-6 lg:px-8 bg-[#F5F7FA]">
+<div class="container mx-auto max-w-4xl text-center fade-in">
+<h1 class="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-6">정확한 정보를 바탕으로, 현명한 선택을</h1>
+<p class="text-lg sm:text-xl text-gray-600 max-w-2xl mx-auto mb-8">
+알고투표는 객관적인 정보를 통해 유권자들이 편향 없이 후보자를 비교하고
+현명한 선택을 할 수 있도록 돕는 플랫폼입니다. 정확한 정보로 민주주의의 가치를 높입니다.
+</p>
+<div class="flex justify-center">
+<a href="/compare" class="bg-primary text-white px-8 py-3 rounded-button font-medium hover:bg-opacity-90 transition-colors duration-200 whitespace-nowrap">공약 비교하기</a>
+</div>
+</div>
+</section>
+<!-- 주요 후보자 섹션 (3명) -->
+<section class="py-16 px-4 sm:px-6 lg:px-8">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-gray-900 mb-10 text-center">제21대 대통령 선거 주요 후보자</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+        
+        <!-- Candidate 1 -->
+        <div class="relative aspect-[2/3] rounded-2xl overflow-hidden group">
+          <img src="https://i.namu.wiki/i/mxVpMiNuRQ_Pv-UQUORBy4wEdyAV4YEezzrm00yeLe86MhZD-xedG7CRxepIBS83Q148EMgC9ksolJs0bYZXWpRzeypfCh9c8eAjF_L_I2m8YpIltGrxOngcgXsyl99PlyWSnFFJrXHaX3R1YBGgsA.webp" alt="김민수 후보" class="absolute inset-0 w-full h-full object-cover object-top transition-transform duration-500 ease-out group-hover:scale-110">
+          <div class="absolute inset-0 bg-black opacity-0 group-hover:opacity-60 transition"></div>
+          <div class="absolute inset-0 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition p-6">
+            <h3 class="text-2xl font-bold text-white mb-3">이재명 후보</h3>
+            <p class="text-white text-center mb-6">"지속 가능한 미래를 위한 혁신"</p>
+            <a href="/candidates/kim-minsu" class="bg-primary text-white px-6 py-2 rounded-button font-medium hover:bg-opacity-90 transition">공약 보기</a>
+          </div>
+        </div>
+  
+        <!-- Candidate 2 -->
+        <div class="relative aspect-[2/3] rounded-2xl overflow-hidden group">
+          <img src="https://i.namu.wiki/i/f9PmjjUT-IMUgN17d2Dkr6FvCFYooaWXwmSVYlqp-uET10o-fW4sUqstZ475862-X-TDSTncoaGgElAdPYija8jgteC2lPF6EE7MzUb9MQt64xtnR24GFM9vb9EOz_QD5ztkBvdwIkz5_eEdA-o18w.webp" alt="이지원 후보" class="absolute inset-0 w-full h-full object-cover object-top transition-transform duration-500 ease-out group-hover:scale-110">
+          <div class="absolute inset-0 bg-black opacity-0 group-hover:opacity-60 transition"></div>
+          <div class="absolute inset-0 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition p-6">
+            <h3 class="text-2xl font-bold text-white mb-3">홍준표 후보</h3>
+            <p class="text-white text-center mb-6">"국민과 함께하는 새로운 정치"</p>
+            <a href="/candidates/lee-jiwon" class="bg-primary text-white px-6 py-2 rounded-button font-medium hover:bg-opacity-90 transition">공약 보기</a>
+          </div>
+        </div>
+  
+        <!-- Candidate 3 -->
+        <div class="relative aspect-[2/3] rounded-2xl overflow-hidden group">
+          <img src="https://i.namu.wiki/i/mkTNQlg-k44NqJx41KVnEitRbGFVXExjxnrQ5_SK9nZD48iPpV7k2bYwg7ixRXRDAPuwOzKf5v5PAsK81hz_YFFuu6DKnR6YAfl-cDXKjWLvu_l5m1OPyVOHzjjo0PQ5xRBJrbmefezp8_jXt7dKOA.webp" alt="박성호 후보" class="absolute inset-0 w-full h-full object-cover object-top transition-transform duration-500 ease-out group-hover:scale-110">
+          <div class="absolute inset-0 bg-black opacity-0 group-hover:opacity-60 transition"></div>
+          <div class="absolute inset-0 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition p-6">
+            <h3 class="text-2xl font-bold text-white mb-3">이준석 후보</h3>
+            <p class="text-white text-center mb-6">"경제 성장과 사회 안정을 위해"</p>
+            <a href="/candidates/park-sungho" class="bg-primary text-white px-6 py-2 rounded-button font-medium hover:bg-opacity-90 transition">공약 보기</a>
+          </div>
+        </div>
+  
+      </div>
+    </div>
+  </section>
+<!-- Features Section -->
+<section class="py-16 px-4 sm:px-6 lg:px-8 bg-[#F5F7FA]">
+<div class="container mx-auto max-w-5xl">
+<h2 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-12 text-center">알고투표의 특징</h2>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<!-- Feature 1 -->
+<div class="bg-white p-6 rounded-2xl shadow-sm">
+<div class="w-12 h-12 bg-primary bg-opacity-10 rounded-full flex items-center justify-center mb-4 mx-auto">
+<i class="ri-scales-3-line text-primary ri-lg"></i>
+</div>
+<h3 class="text-xl font-bold text-center mb-3">객관적 비교</h3>
+<p class="text-gray-600 text-center">각 후보자의 공약과 정책을 객관적인 기준으로 비교하여 제공합니다.</p>
+</div>
+<!-- Feature 2 -->
+<div class="bg-white p-6 rounded-2xl shadow-sm">
+<div class="w-12 h-12 bg-primary bg-opacity-10 rounded-full flex items-center justify-center mb-4 mx-auto">
+<i class="ri-search-line text-primary ri-lg"></i>
+</div>
+<h3 class="text-xl font-bold text-center mb-3">팩트 체크</h3>
+<p class="text-gray-600 text-center">후보자들의 발언과 공약에 대한 사실 확인 정보를 제공합니다.</p>
+</div>
+<!-- Feature 3 -->
+<div class="bg-white p-6 rounded-2xl shadow-sm">
+<div class="w-12 h-12 bg-primary bg-opacity-10 rounded-full flex items-center justify-center mb-4 mx-auto">
+<i class="ri-user-voice-line text-primary ri-lg"></i>
+</div>
+<h3 class="text-xl font-bold text-center mb-3">시민 참여</h3>
+<p class="text-gray-600 text-center">유권자들이 직접 질문하고 토론할 수 있는 참여형 플랫폼을 제공합니다.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- CTA Section -->
+<section class="py-16 px-4 sm:px-6 lg:px-8">
+<div class="container mx-auto max-w-4xl bg-primary bg-opacity-5 rounded-2xl p-8 sm:p-12">
+<div class="text-center">
+<h2 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-4">투표일 안내</h2>
+<p class="text-lg text-gray-700 mb-8">2025년 5월 15일 (목) 오전 6시 ~ 오후 8시</p>
+<a href="/voting-info" class="bg-primary text-white px-8 py-3 rounded-button font-medium hover:bg-opacity-90 transition-colors duration-200 inline-block whitespace-nowrap">투표 방법 알아보기</a>
+</div>
+</div>
+</section>
+<!-- Footer -->
+<footer class="bg-[#F5F7FA] py-8 px-4 sm:px-6 lg:px-8">
+<div class="container mx-auto text-center">
+<p class="text-gray-600 mb-2">© 2025 알고투표. All rights reserved.</p>
+<p class="text-gray-500 text-sm">※ 알고투표는 특정 후보를 지지하거나 반대하지 않습니다.</p>
+</div>
+</footer>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+const heroSection = document.querySelector('.fade-in');
+heroSection.style.opacity = '1';
+});
+</script>
+</body>
+</html>

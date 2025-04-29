@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>공약 비교하기 - 알고투표</title>
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <script>tailwind.config={theme:{extend:{colors:{primary:'#3449FF',secondary:''},borderRadius:{'none':'0px','sm':'4px',DEFAULT:'8px','md':'12px','lg':'16px','xl':'20px','2xl':'24px','3xl':'32px','full':'9999px','button':'8px'}}}}</script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+        
+        body {
+            font-family: 'Pretendard', 'Inter', sans-serif;
+        }
+        
+        .custom-checkbox {
+            appearance: none;
+            width: 1.25rem;
+            height: 1.25rem;
+            border: 2px solid #d1d5db;
+            border-radius: 4px;
+            background-color: white;
+            cursor: pointer;
+            position: relative;
+        }
+        
+        .custom-checkbox:checked {
+            background-color: #3449FF;
+            border-color: #3449FF;
+        }
+        
+        .custom-checkbox:checked::after {
+            content: '';
+            position: absolute;
+            left: 6px;
+            top: 2px;
+            width: 5px;
+            height: 10px;
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
+        
+        .table-scroll::-webkit-scrollbar {
+            height: 8px;
+        }
+        
+        .table-scroll::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 4px;
+        }
+        
+        .table-scroll::-webkit-scrollbar-thumb {
+            background: #d1d5db;
+            border-radius: 4px;
+        }
+        
+        .table-scroll::-webkit-scrollbar-thumb:hover {
+            background: #9ca3af;
+        }
+        
+        .chatbot-input {
+            border: 1px solid #e5e7eb;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        
+        .chatbot-input:focus {
+            border-color: #3449FF;
+        }
+        
+        :where([class^="ri-"])::before { 
+            content: "\f3c2"; 
+        }
+    </style>
+</head>
+<body class="bg-white text-[#1E1E1E]">
+    <!-- Navigation Bar -->
+<header class="sticky top-0 z-50 bg-white border-b border-gray-100">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between items-center h-16">
+    <div class="flex-shrink-0">
+    <a href="/" class="text-2xl font-bold text-gray-900">알고투표</a>
+    </div>
+    <nav class="flex space-x-8">
+    <a href="/compare" class="text-gray-700 hover:text-primary transition-colors duration-200 font-medium">공약 비교</a>
+    <a href="/about" class="text-gray-700 hover:text-primary transition-colors duration-200 font-medium">알고투표 소개</a>
+    </nav>
+    </div>
+    </div>
+    </header>
+
+    <!-- 메인 콘텐츠 -->
+    <main class="container mx-auto px-4 pt-24 pb-20">
+        <!-- 후보 선택 영역 -->
+        <section class="mb-12">
+            <h1 class="text-2xl font-bold mb-6 text-center">2~3명의 후보를 선택하여 공약을 비교하세요.</h1>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+                <!-- 후보 1 -->
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-4 flex items-center">
+                    <input type="checkbox" id="candidate1" class="custom-checkbox mr-4" data-candidate-id="1">
+                    <label for="candidate1" class="flex items-center cursor-pointer flex-1">
+                        <div class="w-16 h-16 rounded-full bg-gray-200 overflow-hidden mr-4 flex-shrink-0">
+                            <img src="https://readdy.ai/api/search-image?query=professional%20headshot%20of%20a%20middle-aged%20Korean%20male%20politician%20with%20short%20black%20hair%20wearing%20a%20formal%20dark%20suit%20with%20a%20blue%20tie%2C%20neutral%20background%2C%20realistic%20portrait&width=200&height=200&seq=1&orientation=squarish" alt="김민수" class="w-full h-full object-cover">
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-lg">김민수</h3>
+                            <p class="text-gray-600 text-sm">더나은미래당</p>
+                        </div>
+                    </label>
+                </div>
+                
+                <!-- 후보 2 -->
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-4 flex items-center">
+                    <input type="checkbox" id="candidate2" class="custom-checkbox mr-4" data-candidate-id="2">
+                    <label for="candidate2" class="flex items-center cursor-pointer flex-1">
+                        <div class="w-16 h-16 rounded-full bg-gray-200 overflow-hidden mr-4 flex-shrink-0">
+                            <img src="https://readdy.ai/api/search-image?query=professional%20headshot%20of%20a%20Korean%20female%20politician%20in%20her%2040s%20with%20shoulder-length%20black%20hair%20wearing%20a%20formal%20red%20blazer%2C%20neutral%20background%2C%20realistic%20portrait&width=200&height=200&seq=2&orientation=squarish" alt="이지현" class="w-full h-full object-cover">
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-lg">이지현</h3>
+                            <p class="text-gray-600 text-sm">국민통합당</p>
+                        </div>
+                    </label>
+                </div>
+                
+                <!-- 후보 3 -->
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-4 flex items-center">
+                    <input type="checkbox" id="candidate3" class="custom-checkbox mr-4" data-candidate-id="3">
+                    <label for="candidate3" class="flex items-center cursor-pointer flex-1">
+                        <div class="w-16 h-16 rounded-full bg-gray-200 overflow-hidden mr-4 flex-shrink-0">
+                            <img src="https://readdy.ai/api/search-image?query=professional%20headshot%20of%20an%20older%20Korean%20male%20politician%20in%20his%2060s%20with%20gray%20hair%20wearing%20a%20formal%20navy%20suit%20with%20glasses%2C%20neutral%20background%2C%20realistic%20portrait&width=200&height=200&seq=3&orientation=squarish" alt="박성호" class="w-full h-full object-cover">
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-lg">박성호</h3>
+                            <p class="text-gray-600 text-sm">자유민주당</p>
+                        </div>
+                    </label>
+                </div>
+                
+                <!-- 후보 4 -->
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-4 flex items-center">
+                    <input type="checkbox" id="candidate4" class="custom-checkbox mr-4" data-candidate-id="4">
+                    <label for="candidate4" class="flex items-center cursor-pointer flex-1">
+                        <div class="w-16 h-16 rounded-full bg-gray-200 overflow-hidden mr-4 flex-shrink-0">
+                            <img src="https://readdy.ai/api/search-image?query=professional%20headshot%20of%20a%20young%20Korean%20female%20politician%20in%20her%2030s%20with%20long%20black%20hair%20wearing%20a%20formal%20blue%20blazer%2C%20neutral%20background%2C%20realistic%20portrait&width=200&height=200&seq=4&orientation=squarish" alt="정유진" class="w-full h-full object-cover">
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-lg">정유진</h3>
+                            <p class="text-gray-600 text-sm">진보연합당</p>
+                        </div>
+                    </label>
+                </div>
+                
+                <!-- 후보 5 -->
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-4 flex items-center">
+                    <input type="checkbox" id="candidate5" class="custom-checkbox mr-4" data-candidate-id="5">
+                    <label for="candidate5" class="flex items-center cursor-pointer flex-1">
+                        <div class="w-16 h-16 rounded-full bg-gray-200 overflow-hidden mr-4 flex-shrink-0">
+                            <img src="https://readdy.ai/api/search-image?query=professional%20headshot%20of%20a%20middle-aged%20Korean%20male%20politician%20with%20glasses%20wearing%20a%20formal%20gray%20suit%20with%20a%20green%20tie%2C%20neutral%20background%2C%20realistic%20portrait&width=200&height=200&seq=5&orientation=squarish" alt="최준혁" class="w-full h-full object-cover">
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-lg">최준혁</h3>
+                            <p class="text-gray-600 text-sm">녹색정의당</p>
+                        </div>
+                    </label>
+                </div>
+                
+                <!-- 후보 6 -->
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-4 flex items-center">
+                    <input type="checkbox" id="candidate6" class="custom-checkbox mr-4" data-candidate-id="6">
+                    <label for="candidate6" class="flex items-center cursor-pointer flex-1">
+                        <div class="w-16 h-16 rounded-full bg-gray-200 overflow-hidden mr-4 flex-shrink-0">
+                            <img src="https://readdy.ai/api/search-image?query=professional%20headshot%20of%20an%20older%20Korean%20female%20politician%20in%20her%2050s%20with%20short%20black%20hair%20wearing%20a%20formal%20purple%20blazer%2C%20neutral%20background%2C%20realistic%20portrait&width=200&height=200&seq=6&orientation=squarish" alt="강미영" class="w-full h-full object-cover">
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-lg">강미영</h3>
+                            <p class="text-gray-600 text-sm">시민참여당</p>
+                        </div>
+                    </label>
+                </div>
+            </div>
+            
+            <div class="flex justify-center">
+                <button id="compareBtn" class="bg-gray-300 text-white py-3 px-8 rounded-button font-medium transition-all disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap" disabled>비교하기</button>
+            </div>
+        </section>
+        
+        <!-- 비교 결과 테이블 -->
+        <section id="comparisonResult" class="hidden">
+            <h2 class="text-xl font-bold mb-6">공약 비교 결과</h2>
+            
+            <div class="table-scroll overflow-x-auto pb-4">
+                <table class="w-full min-w-[1024px] border-collapse">
+                    <thead>
+                        <tr>
+                            <th class="bg-gray-50 p-4 text-left font-medium text-gray-700 border-b border-gray-200 sticky left-0 z-10">정책 분야</th>
+                            <th id="candidateCol1" class="bg-gray-50 p-4 text-left font-medium text-gray-700 border-b border-gray-200 min-w-[250px]"></th>
+                            <th id="candidateCol2" class="bg-gray-50 p-4 text-left font-medium text-gray-700 border-b border-gray-200 min-w-[250px]"></th>
+                            <th id="candidateCol3" class="bg-gray-50 p-4 text-left font-medium text-gray-700 border-b border-gray-200 min-w-[250px] hidden"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- 경제 -->
+                        <tr>
+                            <td class="p-4 border-b border-gray-200 bg-gray-50 font-medium sticky left-0 z-10">경제</td>
+                            <td id="econ1" class="p-4 border-b border-gray-200"></td>
+                            <td id="econ2" class="p-4 border-b border-gray-200"></td>
+                            <td id="econ3" class="p-4 border-b border-gray-200 hidden"></td>
+                        </tr>
+                        
+                        <!-- 복지 -->
+                        <tr>
+                            <td class="p-4 border-b border-gray-200 bg-gray-50 font-medium sticky left-0 z-10">복지</td>
+                            <td id="welfare1" class="p-4 border-b border-gray-200"></td>
+                            <td id="welfare2" class="p-4 border-b border-gray-200"></td>
+                            <td id="welfare3" class="p-4 border-b border-gray-200 hidden"></td>
+                        </tr>
+                        
+                        <!-- 교육 -->
+                        <tr>
+                            <td class="p-4 border-b border-gray-200 bg-gray-50 font-medium sticky left-0 z-10">교육</td>
+                            <td id="edu1" class="p-4 border-b border-gray-200"></td>
+                            <td id="edu2" class="p-4 border-b border-gray-200"></td>
+                            <td id="edu3" class="p-4 border-b border-gray-200 hidden"></td>
+                        </tr>
+                        
+                        <!-- 외교/안보 -->
+                        <tr>
+                            <td class="p-4 border-b border-gray-200 bg-gray-50 font-medium sticky left-0 z-10">외교/안보</td>
+                            <td id="foreign1" class="p-4 border-b border-gray-200"></td>
+                            <td id="foreign2" class="p-4 border-b border-gray-200"></td>
+                            <td id="foreign3" class="p-4 border-b border-gray-200 hidden"></td>
+                        </tr>
+                        
+                        <!-- 환경 -->
+                        <tr>
+                            <td class="p-4 border-b border-gray-200 bg-gray-50 font-medium sticky left-0 z-10">환경</td>
+                            <td id="env1" class="p-4 border-b border-gray-200"></td>
+                            <td id="env2" class="p-4 border-b border-gray-200"></td>
+                            <td id="env3" class="p-4 border-b border-gray-200 hidden"></td>
+                        </tr>
+                        
+                        <!-- 주거 -->
+                        <tr>
+                            <td class="p-4 border-b border-gray-200 bg-gray-50 font-medium sticky left-0 z-10">주거</td>
+                            <td id="housing1" class="p-4 border-b border-gray-200"></td>
+                            <td id="housing2" class="p-4 border-b border-gray-200"></td>
+                            <td id="housing3" class="p-4 border-b border-gray-200 hidden"></td>
+                        </tr>
+                        
+                        <!-- 일자리 -->
+                        <tr>
+                            <td class="p-4 border-b border-gray-200 bg-gray-50 font-medium sticky left-0 z-10">일자리</td>
+                            <td id="job1" class="p-4 border-b border-gray-200"></td>
+                            <td id="job2" class="p-4 border-b border-gray-200"></td>
+                            <td id="job3" class="p-4 border-b border-gray-200 hidden"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <!-- 챗봇 플로팅 버튼 -->
+    <div id="chatbotBtn" class="fixed bottom-6 right-6 w-14 h-14 rounded-full bg-primary text-white shadow-lg flex items-center justify-center cursor-pointer hover:shadow-xl transition-shadow z-50">
+        <i class="ri-message-3-line ri-lg"></i>
+    </div>
+
+    <!-- 챗봇 창 -->
+    <div id="chatbotWindow" class="fixed bottom-24 right-6 w-80 md:w-96 bg-white rounded-2xl shadow-xl z-50 hidden overflow-hidden">
+        <div class="p-4 bg-primary text-white flex justify-between items-center">
+            <h3 class="font-medium">공약 도우미</h3>
+            <div id="closeChatbot" class="w-8 h-8 flex items-center justify-center cursor-pointer rounded-full hover:bg-white/20 transition-colors">
+                <i class="ri-close-line ri-lg"></i>
+            </div>
+        </div>
+        
+        <div id="chatMessages" class="p-4 h-80 overflow-y-auto flex flex-col space-y-3">
+            <div class="bg-gray-100 rounded-2xl p-3 self-start max-w-[80%]">
+                <p>안녕하세요! 후보자들의 공약에 대해 궁금한 점이 있으신가요?</p>
+            </div>
+            <div class="bg-gray-100 rounded-2xl p-3 self-start max-w-[80%]">
+                <p>다음과 같은 질문을 해보세요:</p>
+                <ul class="text-sm text-gray-600 mt-2 space-y-1">
+                    <li>• "청년 주거 지원 정책 알려줘"</li>
+                    <li>• "여성 복지 관련 공약 비교해줘"</li>
+                    <li>• "환경 정책은 어떤 것이 있나요?"</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="p-3 border-t border-gray-200">
+            <div class="flex">
+                <input type="text" id="chatInput" class="chatbot-input flex-1 py-2 px-3 rounded-l-lg" placeholder="질문을 입력하세요...">
+                <button id="sendChat" class="bg-primary text-white px-4 rounded-r-lg !rounded-button whitespace-nowrap">전송</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 후보자 데이터
+            const candidateData = {
+                1: {
+                    name: "김민수",
+                    party: "더나은미래당",
+                    policies: {
+                        economy: "최저임금 인상 및 대기업 법인세율 상향 조정으로 경제 불평등 해소",
+                        welfare: "기초연금 인상 및 아동수당 확대로 전 생애주기 복지 강화",
+                        education: "대학 등록금 반값 정책 및 공교육 강화를 통한 교육 격차 해소",
+                        foreign: "주변국과의 협력 강화 및 평화 체제 구축을 위한 외교 다변화",
+                        environment: "2040년까지 탄소중립 달성 및 신재생에너지 비중 40% 확대",
+                        housing: "청년·신혼부부 주택 공급 확대 및 1인 가구 맞춤형 주거 지원",
+                        job: "공공부문 일자리 확대 및 중소기업 취업자 소득세 감면"
+                    }
+                },
+                2: {
+                    name: "이지현",
+                    party: "국민통합당",
+                    policies: {
+                        economy: "법인세 인하 및 규제 완화를 통한 기업 활동 촉진과 일자리 창출",
+                        welfare: "맞춤형 복지 확대 및 사회서비스 일자리 창출로 복지-고용 연계",
+                        education: "직업교육 강화 및 평생학습 체계 구축으로 미래 인재 양성",
+                        foreign: "한미동맹 강화 및 경제안보 중심의 실용적 외교 추진",
+                        environment: "원자력 발전 확대와 친환경 에너지 기술 개발 병행",
+                        housing: "재개발·재건축 규제 완화 및 민간 주택 공급 활성화",
+                        job: "스타트업 지원 확대 및 청년 창업 활성화를 통한 일자리 창출"
+                    }
+                },
+                3: {
+                    name: "박성호",
+                    party: "자유민주당",
+                    policies: {
+                        economy: "대규모 감세 및 규제 철폐를 통한 시장 중심 경제 활성화",
+                        welfare: "민간 중심 복지 확대 및 효율적인 복지 전달체계 구축",
+                        education: "교육 자율성 확대 및 경쟁력 있는 교육 시스템 구축",
+                        foreign: "강력한 안보 체제 구축 및 자주국방 능력 강화",
+                        environment: "친환경 기술 개발 지원 및 시장 기반 환경 정책 추진",
+                        housing: "부동산 세금 완화 및 주택 공급 규제 철폐",
+                        job: "노동시장 유연화 및 기업 주도 일자리 창출 환경 조성"
+                    }
+                },
+                4: {
+                    name: "정유진",
+                    party: "진보연합당",
+                    policies: {
+                        economy: "부유세 도입 및 재벌 개혁을 통한 경제 민주화 실현",
+                        welfare: "기본소득 도입 및 보편적 복지 확대로 사회안전망 강화",
+                        education: "무상교육 전면 실시 및 교육 공공성 강화",
+                        foreign: "평화 외교 중심의 남북 관계 개선 및 동북아 협력 확대",
+                        environment: "2035년까지 탈원전·탈석탄 실현 및 그린뉴딜 정책 추진",
+                        housing: "공공임대주택 대폭 확대 및 주택 공공성 강화",
+                        job: "주 4일제 도입 및 비정규직 철폐를 통한 노동권 강화"
+                    }
+                },
+                5: {
+                    name: "최준혁",
+                    party: "녹색정의당",
+                    policies: {
+                        economy: "녹색 경제 전환 및 지역 경제 활성화를 통한 지속가능한 성장",
+                        welfare: "생태적 기본소득 도입 및 지역사회 중심 복지 확대",
+                        education: "생태 시민 교육 강화 및 지역 기반 교육 공동체 활성화",
+                        foreign: "기후 위기 대응을 위한 국제 협력 강화 및 평화 외교 추진",
+                        environment: "2030년까지 탄소중립 실현 및 생태계 보전 정책 강화",
+                        housing: "에너지 자립형 주택 보급 확대 및 공유 주택 모델 활성화",
+                        job: "녹색 일자리 창출 및 지역 순환경제 기반 고용 확대"
+                    }
+                },
+                6: {
+                    name: "강미영",
+                    party: "시민참여당",
+                    policies: {
+                        economy: "협동조합 및 사회적 경제 활성화를 통한 포용적 성장",
+                        welfare: "돌봄 경제 강화 및 지역사회 중심 복지 서비스 확대",
+                        education: "민주시민교육 강화 및 마을교육공동체 활성화",
+                        foreign: "시민 참여형 외교 및 국제 연대 강화",
+                        environment: "생활 속 환경 정책 강화 및 시민 참여형 에너지 전환",
+                        housing: "도시재생 및 커뮤니티 중심 주거 모델 확대",
+                        job: "사회적 일자리 확대 및 지역 기반 일자리 창출"
+                    }
+                }
+            };
+            
+            // 체크박스 및 비교하기 버튼 관련 기능
+            const checkboxes = document.querySelectorAll('.custom-checkbox');
+            const compareBtn = document.getElementById('compareBtn');
+            const comparisonResult = document.getElementById('comparisonResult');
+            
+            // 선택된 후보 추적
+            let selectedCandidates = [];
+            
+            // 체크박스 이벤트 리스너
+            checkboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', function() {
+                    const candidateId = this.dataset.candidateId;
+                    
+                    if (this.checked) {
+                        // 이미 3명 선택된 경우 추가 선택 방지
+                        if (selectedCandidates.length >= 3) {
+                            this.checked = false;
+                            alert('최대 3명까지 선택 가능합니다.');
+                            return;
+                        }
+                        selectedCandidates.push(candidateId);
+                    } else {
+                        // 선택 해제
+                        const index = selectedCandidates.indexOf(candidateId);
+                        if (index > -1) {
+                            selectedCandidates.splice(index, 1);
+                        }
+                    }
+                    
+                    // 버튼 활성화/비활성화
+                    if (selectedCandidates.length >= 2 && selectedCandidates.length <= 3) {
+                        compareBtn.disabled = false;
+                        compareBtn.classList.remove('bg-gray-300');
+                        compareBtn.classList.add('bg-primary');
+                    } else {
+                        compareBtn.disabled = true;
+                        compareBtn.classList.remove('bg-primary');
+                        compareBtn.classList.add('bg-gray-300');
+                    }
+                });
+            });
+            
+            // 비교하기 버튼 클릭 이벤트
+            compareBtn.addEventListener('click', function() {
+                if (selectedCandidates.length < 2) {
+                    alert('최소 2명의 후보를 선택해주세요.');
+                    return;
+                }
+                
+                // 결과 테이블 표시
+                comparisonResult.classList.remove('hidden');
+                
+                // 테이블 헤더 설정
+                for (let i = 0; i < 3; i++) {
+                    const headerCol = document.getElementById(`candidateCol${i+1}`);
+                    const candidateId = selectedCandidates[i];
+                    
+                    if (candidateId) {
+                        const candidate = candidateData[candidateId];
+                        headerCol.innerHTML = `
+                            <div class="flex items-center">
+                                <div class="w-10 h-10 rounded-full bg-gray-200 overflow-hidden mr-3 flex-shrink-0">
+                                    <img src="https://readdy.ai/api/search-image?query=professional%20headshot%20of%20a%20Korean%20politician%2C%20neutral%20background%2C%20realistic%20portrait&width=100&height=100&seq=${candidateId}&orientation=squarish" alt="${candidate.name}" class="w-full h-full object-cover">
+                                </div>
+                                <div>
+                                    <h3 class="font-semibold">${candidate.name}</h3>
+                                    <p class="text-sm text-gray-600">${candidate.party}</p>
+                                </div>
+                            </div>
+                        `;
+                        headerCol.classList.remove('hidden');
+                        
+                        // 정책 데이터 채우기
+                        document.getElementById(`econ${i+1}`).textContent = candidate.policies.economy;
+                        document.getElementById(`welfare${i+1}`).textContent = candidate.policies.welfare;
+                        document.getElementById(`edu${i+1}`).textContent = candidate.policies.education;
+                        document.getElementById(`foreign${i+1}`).textContent = candidate.policies.foreign;
+                        document.getElementById(`env${i+1}`).textContent = candidate.policies.environment;
+                        document.getElementById(`housing${i+1}`).textContent = candidate.policies.housing;
+                        document.getElementById(`job${i+1}`).textContent = candidate.policies.job;
+                        
+                        document.getElementById(`econ${i+1}`).classList.remove('hidden');
+                        document.getElementById(`welfare${i+1}`).classList.remove('hidden');
+                        document.getElementById(`edu${i+1}`).classList.remove('hidden');
+                        document.getElementById(`foreign${i+1}`).classList.remove('hidden');
+                        document.getElementById(`env${i+1}`).classList.remove('hidden');
+                        document.getElementById(`housing${i+1}`).classList.remove('hidden');
+                        document.getElementById(`job${i+1}`).classList.remove('hidden');
+                    } else {
+                        headerCol.innerHTML = '';
+                        headerCol.classList.add('hidden');
+                        
+                        document.getElementById(`econ${i+1}`).textContent = '';
+                        document.getElementById(`welfare${i+1}`).textContent = '';
+                        document.getElementById(`edu${i+1}`).textContent = '';
+                        document.getElementById(`foreign${i+1}`).textContent = '';
+                        document.getElementById(`env${i+1}`).textContent = '';
+                        document.getElementById(`housing${i+1}`).textContent = '';
+                        document.getElementById(`job${i+1}`).textContent = '';
+                        
+                        document.getElementById(`econ${i+1}`).classList.add('hidden');
+                        document.getElementById(`welfare${i+1}`).classList.add('hidden');
+                        document.getElementById(`edu${i+1}`).classList.add('hidden');
+                        document.getElementById(`foreign${i+1}`).classList.add('hidden');
+                        document.getElementById(`env${i+1}`).classList.add('hidden');
+                        document.getElementById(`housing${i+1}`).classList.add('hidden');
+                        document.getElementById(`job${i+1}`).classList.add('hidden');
+                    }
+                }
+                
+                // 결과 테이블로 스크롤
+                comparisonResult.scrollIntoView({ behavior: 'smooth' });
+            });
+            
+            // 챗봇 관련 기능
+            const chatbotBtn = document.getElementById('chatbotBtn');
+            const chatbotWindow = document.getElementById('chatbotWindow');
+            const closeChatbot = document.getElementById('closeChatbot');
+            const chatMessages = document.getElementById('chatMessages');
+            const chatInput = document.getElementById('chatInput');
+            const sendChat = document.getElementById('sendChat');
+            
+            // 챗봇 버튼 클릭 이벤트
+            chatbotBtn.addEventListener('click', function() {
+                chatbotWindow.classList.toggle('hidden');
+                if (!chatbotWindow.classList.contains('hidden')) {
+                    chatInput.focus();
+                }
+            });
+            
+            // 챗봇 닫기 버튼
+            closeChatbot.addEventListener('click', function() {
+                chatbotWindow.classList.add('hidden');
+            });
+            
+            // 메시지 전송 함수
+            function sendMessage() {
+                const message = chatInput.value.trim();
+                if (message === '') return;
+                
+                // 사용자 메시지 추가
+                const userMsgElement = document.createElement('div');
+                userMsgElement.className = 'bg-primary/10 rounded-2xl p-3 self-end max-w-[80%]';
+                userMsgElement.innerHTML = `<p>${message}</p>`;
+                chatMessages.appendChild(userMsgElement);
+                
+                // 입력창 비우기
+                chatInput.value = '';
+                
+                // 스크롤 아래로
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+                
+                // 봇 응답 (간단한 예시)
+                setTimeout(() => {
+                    let botResponse = '';
+                    
+                    if (message.includes('청년') && message.includes('주거')) {
+                        botResponse = `
+                            <p>청년 주거 지원 정책 비교:</p>
+                            <ul class="text-sm mt-2 space-y-1">
+                                <li>• 김민수: 청년·신혼부부 주택 공급 확대 및 1인 가구 맞춤형 주거 지원</li>
+                                <li>• 이지현: 재개발·재건축 규제 완화 및 민간 주택 공급 활성화</li>
+                                <li>• 정유진: 공공임대주택 대폭 확대 및 주택 공공성 강화</li>
+                            </ul>
+                        `;
+                    } else if (message.includes('여성') && message.includes('복지')) {
+                        botResponse = `
+                            <p>여성 복지 관련 공약 비교:</p>
+                            <ul class="text-sm mt-2 space-y-1">
+                                <li>• 김민수: 육아휴직 확대 및 경력단절 여성 지원 강화</li>
+                                <li>• 이지현: 여성 일자리 확대 및 경력단절 여성 재취업 지원</li>
+                                <li>• 강미영: 돌봄 경제 강화 및 여성 안전 정책 확대</li>
+                            </ul>
+                        `;
+                    } else if (message.includes('환경')) {
+                        botResponse = `
+                            <p>환경 정책 비교:</p>
+                            <ul class="text-sm mt-2 space-y-1">
+                                <li>• 김민수: 2040년까지 탄소중립 달성 및 신재생에너지 비중 40% 확대</li>
+                                <li>• 이지현: 원자력 발전 확대와 친환경 에너지 기술 개발 병행</li>
+                                <li>• 최준혁: 2030년까지 탄소중립 실현 및 생태계 보전 정책 강화</li>
+                            </ul>
+                        `;
+                    } else {
+                        botResponse = `
+                            <p>죄송합니다. 해당 질문에 대한 정확한 답변을 드리기 어렵습니다.</p>
+                            <p class="text-sm mt-2">다음과 같은 질문을 해보세요:</p>
+                            <ul class="text-sm text-gray-600 mt-1 space-y-1">
+                                <li>• "청년 주거 지원 정책 알려줘"</li>
+                                <li>• "여성 복지 관련 공약 비교해줘"</li>
+                                <li>• "환경 정책은 어떤 것이 있나요?"</li>
+                            </ul>
+                        `;
+                    }
+                    
+                    const botMsgElement = document.createElement('div');
+                    botMsgElement.className = 'bg-gray-100 rounded-2xl p-3 self-start max-w-[80%]';
+                    botMsgElement.innerHTML = botResponse;
+                    chatMessages.appendChild(botMsgElement);
+                    
+                    // 스크롤 아래로
+                    chatMessages.scrollTop = chatMessages.scrollHeight;
+                }, 800);
+            }
+            
+            // 전송 버튼 클릭
+            sendChat.addEventListener('click', sendMessage);
+            
+            // 엔터키 입력
+            chatInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    sendMessage();
+                }
+            });
+        });
+    </script>
+</body>
+</html>

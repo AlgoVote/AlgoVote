@@ -1,0 +1,112 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+## 1. 컬러 시스템
+
+| 역할 | 색상 코드 | 설명 |
+| --- | --- | --- |
+| Primary (메인) | `#3449FF` | 신뢰, 안정, 클릭 유도 |
+| Background (배경) | `#F5F7FA` | 깨끗하고 부드러운 회색톤 |
+| Text Primary (기본 텍스트) | `#1E1E1E` | 높은 가독성, 본문 텍스트 |
+| Text Secondary (보조 텍스트) | `#6B7280` | 서브 설명, 부가 정보 |
+| Divider (구분선/테두리) | `#E5E7EB` | 부드러운 구분선 색 |
+| Highlight (포인트) | `#FFC400` | 강조, 하이라이트 포인트 |
+| Success (성공 알림) | `#22C55E` | 초록 (선택사항) |
+| Error (오류 알림) | `#EF4444` | 빨강 (선택사항) |
+
+---
+
+## 2. 타이포그래피 시스템
+
+| 타입 | 폰트 | 크기(px) | 스타일 | 용도 |
+| --- | --- | --- | --- | --- |
+| H1 | Pretendard Bold | 32px | Bold | 메인 페이지 타이틀 |
+| H2 | Pretendard SemiBold | 24px | SemiBold | 섹션 타이틀 |
+| H3 | Pretendard Medium | 20px | Medium | 후보 카드 제목 등 |
+| Body | Pretendard Regular | 16px | Regular | 본문 텍스트 |
+| Caption | Pretendard Light | 12px | Light | 부가설명, 출처 표기 |
+
+> (영문은 Inter, Roboto / 한글은 Pretendard 권장)
+> 
+
+---
+
+## 3. 버튼 컴포넌트
+
+### Primary Button
+
+- 배경: `#3449FF`
+- 텍스트: `#FFFFFF`
+- Border radius: 8px
+- Hover: 약간 어두운 블루로 색상 변경
+
+### Secondary Button
+
+- 배경: `#FFFFFF`
+- 테두리: `#3449FF`
+- 텍스트: `#3449FF`
+- Hover: 연한 블루 배경 추가
+
+### Text Button (Link style)
+
+- 텍스트만 표시
+- 클릭 시 색상 진해짐 (`#3449FF`)
+
+---
+
+## 4. 카드 컴포넌트 (후보 카드, 공약 카드)
+
+- 배경: `#FFFFFF`
+- 테두리: `#E5E7EB`
+- 그림자 없음 (또는 아주 얇게: `0px 2px 4px rgba(0,0,0,0.05)`)
+- Border radius: 12px
+- Padding: 내부 여백 16px
+- Hover 시 살짝 그림자 추가 (`hover: box-shadow`)
+
+---
+
+## 5. 레이아웃 시스템
+
+- 최대 컨텐츠 폭 (PC 기준): 1200px
+- 기본 그리드: 12 column 시스템
+- Column 간격: 24px
+- 콘텐츠 간 수직 여백: 80px
+- 모바일 뷰:
+    - 1 Column (후보 카드 1줄 1개씩)
+    - 텍스트 크기 90% 스케일 다운
+
+---
+
+## 6. 폼 컴포넌트
+
+- 체크박스:
+    - 기본 테두리 `#6B7280`
+    - 선택 시 `#3449FF` 채워짐
+- 인풋박스:
+    - 테두리: `#E5E7EB`
+    - Focus 시: 테두리 `#3449FF`
+
+---
+
+## 7. 챗봇 플로팅 버튼
+
+- 원형 버튼
+- 배경: `#3449FF`
+- 아이콘: 채팅 아이콘 (화이트 컬러)
+- Hover 시 약간 크게 (`transform: scale(1.05)`)
+- 우하단 고정 (bottom: 24px, right: 24px)
+
+---
+
+## 8. 섹션/구역 스타일
+
+| 구역 | 스타일 규칙 |
+| --- | --- |
+| 섹션 제목 | H2 + 가벼운 서브텍스트 (설명) |
+| 카드 리스트 구역 | 2~3열 Grid |
+| 비교 테이블 구역 | 깔끔한 표 스타일, 카테고리 강조 |
+| 상세 공약 구역 | Accordion (접었다 펼치기) 추천 |
+
+---
