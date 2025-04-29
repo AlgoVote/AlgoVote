@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
@@ -15,6 +15,8 @@ const getMockCandidateData = (candidateId: string): {
   qnas: QnA[];
 } => {
   // This would be a database query in production
+  console.log(`Fetching data for candidate: ${candidateId}`);
+  
   return {
     candidate: {
       id: 'kim-minsu',
@@ -34,7 +36,7 @@ const getMockCandidateData = (candidateId: string): {
         '전 서울시 정무부시장'
       ],
       slogan: '국민의 삶을 책임지는 정치, 미래를 여는 변화',
-      profileImage: 'https://readdy.ai/api/search-image?query=professional%2520headshot%2520photo%2520of%2520a%2520korean%2520politician%2520man%2520in%2520his%2520early%252050s%2520wearing%2520a%2520formal%2520suit%252C%2520looking%2520confident%2520and%2520approachable%252C%2520high%2520quality%2520studio%2520lighting%252C%2520clean%2520background&width=400&height=400&seq=1&orientation=squarish',
+      profileImage: '/images/candidates/lee-jaemyung.jpg',
       websiteUrl: 'https://www.candidate-website.kr'
     },
     pledges: [
@@ -148,52 +150,11 @@ const getMockCandidateData = (candidateId: string): {
 export default function CandidateDetail() {
   // useParams 훅을 사용하여 params 가져오기
   const params = useParams();
-  const candidateId = params.id as string;
+  const id = params.id as string;
   
   // candidateId를 사용하여 데이터 가져오기
-  const { candidate, pledges, statements, qnas } = getMockCandidateData(candidateId);
+  const { candidate, pledges, statements, qnas } = getMockCandidateData(id);
   
-  const [messages, setMessages] = useState<{ text: string; isUser: boolean }[]>([]);
-  const [input, setInput] = useState('');
-
-  const submitQuestion = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!input.trim()) return;
-
-    // 사용자 메시지 추가
-    setMessages([...messages, { text: input, isUser: true }]);
-    
-    // 로딩 메시지 추가
-    setMessages(prevMessages => [
-      ...prevMessages,
-      { text: '질문에 관련된 정보를 찾고 있습니다...', isUser: false },
-    ]);
-    
-    try {
-      const response = await fetch('/api/chatbot', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ query: input }),
-      });
-      
-      const data = await response.json();
-      
-      // 이전 로딩 메시지 대체
-      setMessages(prevMessages => [
-        ...prevMessages.slice(0, -1),
-        { text: data.answer, isUser: false },
-      ]);
-    } catch (err) {
-      console.error('Error fetching chatbot response:', err);
-      setMessages(prevMessages => [
-        ...prevMessages.slice(0, -1),
-        { text: '죄송합니다. 응답을 처리하는 중 오류가 발생했습니다.', isUser: false },
-      ]);
-    }
-    
-    setInput('');
-  };
-
   return (
     <div className="bg-background min-h-screen">
       <main className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 py-8 fade-in">
@@ -254,7 +215,7 @@ export default function CandidateDetail() {
         {/* 핵심 슬로건 섹션 */}
         <section className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl p-8 mb-8 text-center">
           <h2 className="text-2xl md:text-3xl font-bold text-text-primary mb-2">
-            "{candidate.slogan}"
+            &quot;{candidate.slogan}&quot;
           </h2>
           <p className="text-text-secondary">국민과 함께 더 나은 미래를 만들어 나가겠습니다</p>
         </section>

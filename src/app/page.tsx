@@ -14,18 +14,18 @@ const mockCandidates: Candidate[] = [
     education: ['중앙대학교 법학과 졸업'],
     career: ['제20대 더불어민주당 대선 후보', '전 경기도지사', '전 성남시장'],
     slogan: '지속 가능한 미래를 위한 혁신',
-    profileImage: 'https://i.namu.wiki/i/mxVpMiNuRQ_Pv-UQUORBy4wEdyAV4YEezzrm00yeLe86MhZD-xedG7CRxepIBS83Q148EMgC9ksolJs0bYZXWpRzeypfCh9c8eAjF_L_I2m8YpIltGrxOngcgXsyl99PlyWSnFFJrXHaX3R1YBGgsA.webp',
+    profileImage: '/images/candidates/lee-jaemyung.jpg',
   },
   {
-    id: 'hong-junpyo',
-    name: '홍준표',
+    id: 'han-donghun',
+    name: '한동훈',
     party: '국민의힘',
     age: 67,
     birthplace: '경상남도 창녕군',
     education: ['서울대학교 법학과 졸업'],
     career: ['제20대 국민의힘 대선 경선 후보', '전 자유한국당 대표', '전 경상남도지사'],
     slogan: '국민과 함께하는 새로운 정치',
-    profileImage: 'https://i.namu.wiki/i/f9PmjjUT-IMUgN17d2Dkr6FvCFYooaWXwmSVYlqp-uET10o-fW4sUqstZ475862-X-TDSTncoaGgElAdPYija8jgteC2lPF6EE7MzUb9MQt64xtnR24GFM9vb9EOz_QD5ztkBvdwIkz5_eEdA-o18w.webp',
+    profileImage: '/images/candidates/han-donghun.jpg',
   },
   {
     id: 'lee-junseok',
@@ -36,7 +36,7 @@ const mockCandidates: Candidate[] = [
     education: ['서울대학교 컴퓨터공학과 졸업'],
     career: ['제20대 국민의힘 대표', '전 미래통합당 최고위원', '전 한국미래연합 공동대표'],
     slogan: '경제 성장과 사회 안정을 위해',
-    profileImage: 'https://i.namu.wiki/i/mkTNQlg-k44NqJx41KVnEitRbGFVXExjxnrQ5_SK9nZD48iPpV7k2bYwg7ixRXRDAPuwOzKf5v5PAsK81hz_YFFuu6DKnR6YAfl-cDXKjWLvu_l5m1OPyVOHzjjo0PQ5xRBJrbmefezp8_jXt7dKOA.webp',
+    profileImage: '/images/candidates/lee-junseok.jpg',
   },
 ];
 
@@ -109,7 +109,7 @@ export default function Home() {
         <div className="container mx-auto max-w-4xl bg-primary bg-opacity-5 rounded-2xl p-8 sm:p-12">
           <div className="text-center">
             <h2 className="text-2xl sm:text-3xl font-bold text-text-primary mb-4">투표일 안내</h2>
-            <p className="text-lg text-text-secondary mb-8">2025년 5월 15일 (목) 오전 6시 ~ 오후 8시</p>
+            <p className="text-lg text-text-secondary mb-8">2025년 6월 3일 (목) 오전 6시 ~ 오후 8시</p>
             <Link href="/voting-info" className="btn-primary inline-block whitespace-nowrap">
               투표 방법 알아보기
             </Link>

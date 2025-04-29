@@ -88,7 +88,8 @@ export default function About() {
             <div className="text-center mb-8">
               <h2 className="text-xl md:text-2xl font-bold text-text-primary mb-4">작은 응원이 다음 프로젝트를 만듭니다.</h2>
               <p className="text-text-secondary mb-6">
-                알고투표는 비영리 프로젝트로 운영되고 있습니다. 여러분의 작은 후원이 더 나은 민주주의 도구를 만드는 데 큰 힘이 됩니다.
+                알고투표는 비영리 프로젝트로 운영되고 있습니다.<br />
+                여러분의 작은 후원이 더 나은 민주주의 도구를 만드는 데 큰 힘이 됩니다.
               </p>
               <button className="bg-white text-text-primary border border-divider hover:bg-gray-100 transition-colors px-6 py-3 rounded-button font-medium flex items-center mx-auto whitespace-nowrap">
                 <div className="w-6 h-6 flex items-center justify-center mr-2">

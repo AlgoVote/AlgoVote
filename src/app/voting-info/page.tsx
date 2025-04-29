@@ -14,7 +14,7 @@ export default function VotingInfo() {
             투표일 안내
           </h2>
           <div className="bg-primary bg-opacity-5 p-4 rounded-lg mb-4">
-            <p className="text-lg font-medium text-center">2025년 5월 15일 (목) 오전 6시 ~ 오후 8시</p>
+            <p className="text-lg font-medium text-center">2025년 6월 3일 (목) 오전 6시 ~ 오후 8시</p>
           </div>
           <p className="text-text-secondary mb-2">※ 투표소는 오후 8시에 정확히 마감됩니다. 마감 시간 전에 투표소에 도착하여 대기하고 있더라도 투표를 할 수 없으니 이 점 유의하시기 바랍니다.</p>
           <p className="text-text-secondary">※ 사전투표: 2025년 5월 10일 (토) ~ 5월 11일 (일) 오전 6시 ~ 오후 8시</p>
