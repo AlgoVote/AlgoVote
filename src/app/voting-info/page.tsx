@@ -80,6 +80,24 @@ export default function VotingInfo() {
           </div>
         </section>
         
+        {/* 투표 안내 영상 섹션 */}
+        <section className="bg-white rounded-2xl shadow-sm p-6 mb-8">
+          <h2 className="text-2xl font-bold mb-4 flex items-center">
+            <i className="ri-video-line text-primary mr-2"></i>
+            투표 안내 영상
+          </h2>
+          <p className="text-text-secondary mb-4">투표 절차와 유의사항에 대한 상세 안내 영상입니다.</p>
+          <div className="aspect-w-16 aspect-h-9 rounded-lg overflow-hidden">
+            <iframe 
+              src="https://www.youtube.com/embed/aUySKQmiFXQ" 
+              title="투표 안내 영상"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+              allowFullScreen
+              className="w-full h-full"
+            ></iframe>
+          </div>
+        </section>
+        
         {/* 투표소 찾기 섹션 */}
         <section className="bg-white rounded-2xl shadow-sm p-6 mb-8">
           <h2 className="text-2xl font-bold mb-4 flex items-center">
