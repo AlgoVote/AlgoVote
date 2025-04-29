@@ -8,7 +8,7 @@ import PledgeAccordion from '@/components/candidates/PledgeAccordion';
 import { Candidate, Pledge, Statement, QnA } from '@/types';
 
 // Mock data for candidate details (will be replaced with Supabase data later)
-const getMockCandidateData = (id: string): { 
+const getMockCandidateData = (candidateId: string): { 
   candidate: Candidate; 
   pledges: Pledge[];
   statements: Statement[];
@@ -148,15 +148,15 @@ const getMockCandidateData = (id: string): {
 export default function CandidateDetail() {
   // useParams 훅을 사용하여 params 가져오기
   const params = useParams();
-  const id = params.id as string;
+  const candidateId = params.id as string;
   
-  // id를 사용하여 데이터 가져오기
-  const { candidate, pledges, statements, qnas } = getMockCandidateData(id);
+  // candidateId를 사용하여 데이터 가져오기
+  const { candidate, pledges, statements, qnas } = getMockCandidateData(candidateId);
   
   const [messages, setMessages] = useState<{ text: string; isUser: boolean }[]>([]);
   const [input, setInput] = useState('');
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const submitQuestion = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!input.trim()) return;
 
@@ -183,7 +183,8 @@ export default function CandidateDetail() {
         ...prevMessages.slice(0, -1),
         { text: data.answer, isUser: false },
       ]);
-    } catch (error) {
+    } catch (err) {
+      console.error('Error fetching chatbot response:', err);
       setMessages(prevMessages => [
         ...prevMessages.slice(0, -1),
         { text: '죄송합니다. 응답을 처리하는 중 오류가 발생했습니다.', isUser: false },
@@ -198,19 +199,38 @@ export default function CandidateDetail() {
       <main className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 py-8 fade-in">
         {/* 후보 기본 정보 섹션 */}
         <section className="bg-white rounded-2xl shadow-sm p-6 mb-8">
-          <div className="flex flex-col items-center md:flex-row md:items-start gap-8">
-            <div className="w-40 h-40 rounded-md overflow-hidden flex-shrink-0 border border-gray-100">
-              <Image 
-                src={candidate.profileImage} 
-                alt={`${candidate.name} 후보`} 
-                width={160} 
-                height={160}
-                className="w-full h-full object-cover"
-              />
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="md:col-span-1">
+              <div className="relative aspect-square rounded-xl overflow-hidden mb-4">
+                <Image 
+                  src={candidate.profileImage} 
+                  alt={`${candidate.name} 후보 프로필`} 
+                  className="object-cover" 
+                  fill 
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                  priority
+                />
+              </div>
+              <div className="text-center">
+                <h1 className="text-2xl font-bold text-text-primary">{candidate.name}</h1>
+                <p className="text-primary font-medium mt-1">{candidate.party}</p>
+                <p className="text-text-secondary mt-2 text-lg">
+                  &quot;{candidate.slogan}&quot;
+                </p>
+                {candidate.websiteUrl && (
+                  <a 
+                    href={candidate.websiteUrl} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center text-primary mt-3 text-sm hover:underline"
+                  >
+                    <i className="ri-links-line mr-1"></i>
+                    공식 웹사이트 방문하기
+                  </a>
+                )}
+              </div>
             </div>
-            <div className="flex-grow text-center md:text-left">
-              <h1 className="text-3xl font-bold mb-2">{candidate.name}</h1>
-              <div className="text-text-secondary mb-4">{candidate.party} | {candidate.age}세 | {candidate.birthplace} 출생</div>
+            <div className="md:col-span-2">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 border-t border-divider pt-4">
                 <div>
                   <h3 className="text-sm text-text-secondary mb-1">최종 학력</h3>
@@ -227,17 +247,6 @@ export default function CandidateDetail() {
                   </ul>
                 </div>
               </div>
-              {candidate.websiteUrl && (
-                <a 
-                  href={candidate.websiteUrl} 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
-                  className="text-primary hover:underline inline-flex items-center mt-4"
-                >
-                  <span>후보자 공식 웹사이트</span>
-                  <i className="ri-external-link-line ml-1"></i>
-                </a>
-              )}
             </div>
           </div>
         </section>

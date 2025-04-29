@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Image from 'next/image';
 import ChatBotButton from '../../components/ui/ChatBotButton';
 
 // Define types locally since we might not have them in a central types file yet
@@ -14,14 +15,6 @@ interface Candidate {
   career: string[];
   slogan: string;
   profileImage: string;
-}
-
-interface Pledge {
-  id: string;
-  candidateId: string;
-  title: string;
-  category: string;
-  description: string;
 }
 
 // Mock data for candidates (will be replaced with Supabase data later)
@@ -198,75 +191,89 @@ export default function Compare() {
           <>
             <div className="bg-white rounded-2xl shadow-sm p-6 mb-8">
               <div className="text-center mb-6">
-                <p className="text-lg text-text-secondary mb-2">2~3명의 후보를 선택하여 공약을 비교하세요.</p>
-                <p className="text-sm text-text-secondary">각 후보의 주요 정책 분야별 공약을 한눈에 확인할 수 있습니다.</p>
+                <h2 className="text-xl font-semibold text-text-primary mb-2">비교할 후보를 선택해주세요 (최대 3명)</h2>
+                <p className="text-text-secondary">후보자를 선택하면 정책 별로 공약을 비교할 수 있습니다.</p>
               </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
                 {mockCandidates.map((candidate) => (
-                  <div 
+                  <div
                     key={candidate.id}
-                    className={`p-4 border rounded-lg flex items-center gap-4 cursor-pointer transition-colors ${
-                      selectedCandidates.includes(candidate.id) 
-                        ? 'border-primary bg-primary bg-opacity-5' 
-                        : 'border-divider hover:border-primary'
-                    }`}
+                    className={`cursor-pointer border ${
+                      selectedCandidates.includes(candidate.id)
+                        ? 'border-primary bg-primary bg-opacity-5'
+                        : 'border-gray-100'
+                    } rounded-xl p-3 hover:border-primary transition-colors`}
                     onClick={() => handleCandidateSelection(candidate.id)}
                   >
-                    <div className="w-16 h-16 rounded-full overflow-hidden flex-shrink-0">
-                      <img 
-                        src={candidate.profileImage} 
-                        alt={`${candidate.name} 후보`}
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-                    <div>
-                      <h3 className="font-medium">{candidate.name} 후보</h3>
-                      <p className="text-sm text-text-secondary">{candidate.party}</p>
-                      <p className="text-xs text-text-secondary mt-1 line-clamp-1">{candidate.slogan}</p>
-                    </div>
-                    <div className="ml-auto">
-                      <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center ${
-                        selectedCandidates.includes(candidate.id) 
-                          ? 'border-primary bg-primary text-white' 
-                          : 'border-divider'
-                      }`}>
-                        {selectedCandidates.includes(candidate.id) && (
-                          <i className="ri-check-line"></i>
-                        )}
+                    <div className="flex flex-col items-center text-center">
+                      <div className="w-16 h-16 rounded-full overflow-hidden mb-2 border border-gray-100">
+                        <Image 
+                          src={candidate.profileImage} 
+                          alt={candidate.name} 
+                          width={64}
+                          height={64}
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                      <div>
+                        <div className="font-medium text-text-primary">{candidate.name}</div>
+                        <div className="text-xs text-text-secondary">{candidate.party}</div>
                       </div>
                     </div>
                   </div>
                 ))}
               </div>
-
+              
               <div className="mt-8 text-center">
                 <button
                   onClick={startComparing}
                   disabled={selectedCandidates.length < 2}
-                  className={`px-8 py-3 rounded-button font-medium ${
-                    selectedCandidates.length < 2
-                      ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
-                      : 'bg-primary text-white hover:bg-opacity-90'
+                  className={`px-6 py-3 rounded-button ${
+                    selectedCandidates.length >= 2
+                      ? 'bg-primary text-white'
+                      : 'bg-gray-100 text-text-secondary cursor-not-allowed'
                   }`}
                 >
-                  비교하기 {selectedCandidates.length > 0 && `(${selectedCandidates.length}명 선택)`}
+                  {selectedCandidates.length >= 2 ? '공약 비교하기' : '최소 2명 이상의 후보를 선택해주세요'}
                 </button>
               </div>
             </div>
           </>
         ) : (
           <>
+            <div className="mb-6 flex justify-between items-center">
+              <button
+                onClick={() => setIsComparing(false)}
+                className="flex items-center text-text-secondary hover:text-text-primary transition-colors"
+              >
+                <i className="ri-arrow-left-line mr-1"></i>
+                <span>후보 다시 선택하기</span>
+              </button>
+              
+              <div className="flex items-center space-x-3">
+                {mockCandidates
+                  .filter((c) => selectedCandidates.includes(c.id))
+                  .map((candidate) => (
+                    <div key={candidate.id} className="flex items-center">
+                      <div className="w-8 h-8 rounded-full overflow-hidden border border-gray-100">
+                        <Image 
+                          src={candidate.profileImage} 
+                          alt={candidate.name}
+                          width={32}
+                          height={32}
+                          className="w-full h-full object-cover" 
+                        />
+                      </div>
+                      <span className="text-sm text-text-primary font-medium ml-2">{candidate.name}</span>
+                    </div>
+                  ))}
+              </div>
+            </div>
+            
             <div className="bg-white rounded-2xl shadow-sm p-6 mb-8">
               <div className="flex justify-between items-center mb-6">
                 <h2 className="text-xl font-bold">비교 결과</h2>
-                <button 
-                  onClick={() => setIsComparing(false)}
-                  className="text-primary hover:underline flex items-center"
-                >
-                  <i className="ri-arrow-left-line mr-1"></i>
-                  다시 선택하기
-                </button>
               </div>
 
               <div className="overflow-x-auto">
@@ -280,11 +287,15 @@ export default function Compare() {
                           <th key={candidateId} className="px-4 py-3 bg-gray-50 text-left text-sm font-medium text-text-secondary tracking-wider">
                             <div className="flex items-center">
                               <div className="w-10 h-10 rounded-full overflow-hidden mr-2 flex-shrink-0">
-                                <img 
-                                  src={candidate?.profileImage} 
-                                  alt={`${candidate?.name} 후보`}
-                                  className="w-full h-full object-cover"
-                                />
+                                {candidate?.profileImage && (
+                                  <Image 
+                                    src={candidate.profileImage} 
+                                    alt={`${candidate?.name || '후보자'} 후보`}
+                                    width={40}
+                                    height={40}
+                                    className="w-full h-full object-cover"
+                                  />
+                                )}
                               </div>
                               <div>
                                 <span className="font-medium">{candidate?.name} 후보</span>

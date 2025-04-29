@@ -111,7 +111,13 @@ export const getComparisonData = async (
   // Transform the data into the required format
   const result: Record<string, Record<string, string>> = {};
   
-  data.forEach((item: any) => {
+  interface ComparisonItem {
+    category: string;
+    candidateId: string;
+    content: string;
+  }
+  
+  data.forEach((item: ComparisonItem) => {
     if (!result[item.category]) {
       result[item.category] = {};
     }

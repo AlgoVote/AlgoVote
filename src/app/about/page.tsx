@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 import { TeamMember } from '@/types';
 
 // Mock team members data (will be replaced with Supabase data later)
@@ -33,7 +34,7 @@ export default function About() {
         {/* 인트로 섹션 */}
         <section className="container mx-auto px-4 md:px-6 py-16 md:py-20 text-center fade-in">
           <blockquote className="text-2xl md:text-4xl font-bold text-text-primary max-w-3xl mx-auto">
-            "더 나은 선택을 돕고 싶었습니다."
+            &quot;더 나은 선택을 돕고 싶었습니다.&quot;
           </blockquote>
         </section>
 
@@ -59,7 +60,13 @@ export default function About() {
                 <div className="flex items-center mb-4">
                   <div className="w-12 h-12 flex items-center justify-center bg-gray-100 rounded-full overflow-hidden">
                     {member.image ? (
-                      <img src={member.image} alt={member.name} className="w-full h-full object-cover" />
+                      <Image 
+                        src={member.image} 
+                        alt={member.name} 
+                        width={48} 
+                        height={48} 
+                        className="w-full h-full object-cover" 
+                      />
                     ) : (
                       <i className="ri-user-smile-line ri-lg text-text-secondary"></i>
                     )}
@@ -69,7 +76,7 @@ export default function About() {
                     <p className="text-text-secondary">{member.role}</p>
                   </div>
                 </div>
-                <p className="text-text-secondary italic">"{member.quote}"</p>
+                <p className="text-text-secondary italic">&quot;{member.quote}&quot;</p>
               </div>
             ))}
           </div>
