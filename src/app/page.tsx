@@ -1,44 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import CandidateCard from '@/components/cards/CandidateCard';
-import { Candidate } from '@/types';
-
-// Mock data for candidates (will be replaced with Supabase data later)
-const mockCandidates: Candidate[] = [
-  {
-    id: 'lee-jaemyung',
-    name: '이재명',
-    party: '더불어민주당',
-    age: 58,
-    birthplace: '경기도 안양시',
-    education: ['중앙대학교 법학과 졸업'],
-    career: ['제20대 더불어민주당 대선 후보', '전 경기도지사', '전 성남시장'],
-    slogan: '지속 가능한 미래를 위한 혁신',
-    profileImage: '/images/candidates/lee-jaemyung.jpg',
-  },
-  {
-    id: 'han-donghun',
-    name: '한동훈',
-    party: '국민의힘',
-    age: 67,
-    birthplace: '경상남도 창녕군',
-    education: ['서울대학교 법학과 졸업'],
-    career: ['제20대 국민의힘 대선 경선 후보', '전 자유한국당 대표', '전 경상남도지사'],
-    slogan: '국민과 함께하는 새로운 정치',
-    profileImage: '/images/candidates/han-donghun.jpg',
-  },
-  {
-    id: 'lee-junseok',
-    name: '이준석',
-    party: '국민의힘',
-    age: 36,
-    birthplace: '서울특별시',
-    education: ['서울대학교 컴퓨터공학과 졸업'],
-    career: ['제20대 국민의힘 대표', '전 미래통합당 최고위원', '전 한국미래연합 공동대표'],
-    slogan: '경제 성장과 사회 안정을 위해',
-    profileImage: '/images/candidates/lee-junseok.jpg',
-  },
-];
+import { candidates } from '@/data/candidates';
 
 export default function Home() {
   return (
@@ -64,7 +27,7 @@ export default function Home() {
         <div className="container mx-auto">
           <h2 className="text-3xl font-bold text-text-primary mb-10 text-center">제21대 대통령 선거 주요 후보자</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-            {mockCandidates.map((candidate) => (
+            {candidates.map((candidate) => (
               <CandidateCard key={candidate.id} candidate={candidate} />
             ))}
           </div>
