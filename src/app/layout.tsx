@@ -30,9 +30,10 @@ export const metadata: Metadata = {
     siteName: "알고투표",
     images: [
       {
-        url: "https://github.com/user-attachments/assets/28b5f0bb-1473-4007-b3c6-ddc1f34da42f",
+        url: "/image/candidates/logo.png",
         width: 1200,
         height: 630,
+        alt: "Obscura 사용 예시 스크린샷",
       },
     ],
     locale: "ko_KR",
@@ -42,7 +43,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "알고투표",
     description: "알고투표는 객관적인 정보를 통해 유권자들이 편향 없이 후보자를 비교하고 현명한 선택을 할 수 있도록 돕는 플랫폼입니다.",
-    images: ["https://github.com/user-attachments/assets/28b5f0bb-1473-4007-b3c6-ddc1f34da42f"],
+    images: [ "/public/images/candidates/logo.png"],
   },
 }
 
