@@ -23,6 +23,27 @@ const roboto = Roboto({
 export const metadata: Metadata = {
   title: '알고투표 - 정확한 정보를 바탕으로, 현명한 선택을',
   description: '알고투표는 객관적인 정보를 통해 유권자들이 편향 없이 후보자를 비교하고 현명한 선택을 할 수 있도록 돕는 플랫폼입니다.',
+  openGraph: {
+    title: "알고투표",
+    description: "알고투표는 객관적인 정보를 통해 유권자들이 편향 없이 후보자를 비교하고 현명한 선택을 할 수 있도록 돕는 플랫폼입니다.",
+    url: "https://algo-vote-rosy.vercel.app/",
+    siteName: "알고투표",
+    images: [
+      {
+        url: "https://github.com/user-attachments/assets/28b5f0bb-1473-4007-b3c6-ddc1f34da42f",
+        width: 1200,
+        height: 630,
+      },
+    ],
+    locale: "ko_KR",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "알고투표",
+    description: "알고투표는 객관적인 정보를 통해 유권자들이 편향 없이 후보자를 비교하고 현명한 선택을 할 수 있도록 돕는 플랫폼입니다.",
+    images: ["https://github.com/user-attachments/assets/28b5f0bb-1473-4007-b3c6-ddc1f34da42f"],
+  },
 }
 
 export default function RootLayout({

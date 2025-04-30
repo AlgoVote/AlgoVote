@@ -20,7 +20,7 @@ const getMockCandidateData = (candidateId: string): {
   return {
     candidate: {
       id: 'kim-minsu',
-      name: '김민석',
+      name: '이재명',
       party: '더불어민주당',
       age: 54,
       birthplace: '서울특별시',
