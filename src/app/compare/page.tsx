@@ -4,7 +4,6 @@ import React from 'react';
 import Image from 'next/image';
 import ChatBotButton from '../../components/ui/ChatBotButton';
 import { candidates, comparisonData, categoryDescriptions } from '@/data/candidates';
-import { Candidate } from '@/types';
 
 export default function Compare() {
   const [selectedCandidates, setSelectedCandidates] = React.useState<string[]>([]);
