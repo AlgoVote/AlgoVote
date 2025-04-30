@@ -4,6 +4,9 @@ import CandidateCard from '@/components/cards/CandidateCard';
 import { candidates } from '@/data/candidates';
 
 export default function Home() {
+  // 주요 후보자 3명만 표시
+  const mainCandidates = candidates.slice(0, 3);
+  
   return (
     <div className="bg-white min-h-screen">
       {/* Hero Section */}
@@ -26,10 +29,16 @@ export default function Home() {
       <section className="py-16 px-4 sm:px-6 lg:px-8">
         <div className="container mx-auto">
           <h2 className="text-3xl font-bold text-text-primary mb-10 text-center">제21대 대통령 선거 주요 후보자</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-            {candidates.map((candidate) => (
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+            {mainCandidates.map((candidate) => (
               <CandidateCard key={candidate.id} candidate={candidate} />
             ))}
+          </div>
+          <div className="text-center mt-8">
+            <Link href="/compare" className="text-primary hover:underline flex items-center justify-center">
+              <span>전체 후보자 비교하기</span>
+              <i className="ri-arrow-right-line ml-1"></i>
+            </Link>
           </div>
         </div>
       </section>
