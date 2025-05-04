@@ -42,6 +42,26 @@ export default function VotingInfo() {
             </ul>
           </div>
         </section>
+
+        {/* 투표소 찾기 섹션 */}
+        <section className="bg-white rounded-2xl shadow-sm p-6 mb-8">
+          <h2 className="text-2xl font-bold mb-4 flex items-center">
+            <i className="ri-map-pin-line text-primary mr-2"></i>
+            투표소 찾기
+          </h2>
+          <p className="text-text-secondary mb-4">본인의 주민등록주소에 따른 투표소 위치를 확인하세요.</p>
+          <div className="text-center">
+            <a 
+              href="https://www.nec.go.kr" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="bg-primary text-white px-6 py-3 rounded-button inline-flex items-center font-medium hover:bg-opacity-90 transition-colors"
+            >
+              <i className="ri-search-line mr-2"></i>
+              투표소 찾기
+            </a>
+          </div>
+        </section>
         
         {/* 투표 방법 섹션 */}
         <section className="bg-white rounded-2xl shadow-sm p-6 mb-8">
@@ -80,44 +100,6 @@ export default function VotingInfo() {
           </div>
         </section>
         
-        {/* 투표 안내 영상 섹션 */}
-        <section className="bg-white rounded-2xl shadow-sm p-6 mb-8">
-          <h2 className="text-2xl font-bold mb-4 flex items-center">
-            <i className="ri-video-line text-primary mr-2"></i>
-            투표 안내 영상
-          </h2>
-          <p className="text-text-secondary mb-4">투표 절차와 유의사항에 대한 상세 안내 영상입니다.</p>
-          <div className="aspect-w-16 aspect-h-9 rounded-lg overflow-hidden">
-            <iframe 
-              src="https://www.youtube.com/embed/aUySKQmiFXQ" 
-              title="투표 안내 영상"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-              allowFullScreen
-              className="w-full h-full"
-            ></iframe>
-          </div>
-        </section>
-        
-        {/* 투표소 찾기 섹션 */}
-        <section className="bg-white rounded-2xl shadow-sm p-6 mb-8">
-          <h2 className="text-2xl font-bold mb-4 flex items-center">
-            <i className="ri-map-pin-line text-primary mr-2"></i>
-            투표소 찾기
-          </h2>
-          <p className="text-text-secondary mb-4">본인의 주민등록주소에 따른 투표소 위치를 확인하세요.</p>
-          <div className="text-center">
-            <a 
-              href="https://www.nec.go.kr" 
-              target="_blank" 
-              rel="noopener noreferrer" 
-              className="bg-primary text-white px-6 py-3 rounded-button inline-flex items-center font-medium hover:bg-opacity-90 transition-colors"
-            >
-              <i className="ri-search-line mr-2"></i>
-              투표소 찾기
-            </a>
-          </div>
-        </section>
-        
         {/* 선거일 행동요령 섹션 */}
         <section className="bg-white rounded-2xl shadow-sm p-6 mb-8">
           <h2 className="text-2xl font-bold mb-4 flex items-center">
@@ -148,6 +130,26 @@ export default function VotingInfo() {
                 <li>기표소에서는 반드시 기표용구만 사용</li>
                 <li>기표 후 투표함에 직접 투입</li>
               </ul>
+            </div>
+          </div>
+        </section>
+
+        {/* 투표 안내 영상 섹션 */}
+        <section className="bg-white rounded-2xl shadow-sm p-6 mb-8">
+          <h2 className="text-2xl font-bold mb-4 flex items-center">
+            <i className="ri-video-line text-primary mr-2"></i>
+            투표 안내 영상
+          </h2>
+          <p className="text-text-secondary mb-4">투표 절차와 유의사항에 대한 상세 안내 영상입니다.</p>
+          <div className="max-w-5xl mx-auto">
+            <div className="aspect-w-16 aspect-h-9 rounded-lg overflow-hidden">
+              <iframe 
+                src="https://www.youtube.com/embed/aUySKQmiFXQ" 
+                title="투표 안내 영상"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                allowFullScreen
+                className="w-full h-full"
+              ></iframe>
             </div>
           </div>
         </section>

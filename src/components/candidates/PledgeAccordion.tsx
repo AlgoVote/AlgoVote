@@ -1,20 +1,51 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Pledge } from '@/types';
 
 interface PledgeAccordionProps {
   pledge: Pledge;
+  defaultOpen?: boolean;
+  openPledgeId?: string | null;
+  setOpenPledgeId?: (id: string | null) => void;
 }
 
-export default function PledgeAccordion({ pledge }: PledgeAccordionProps) {
-  const [isOpen, setIsOpen] = useState(false);
+export default function PledgeAccordion({ 
+  pledge, 
+  defaultOpen = false, 
+  openPledgeId, 
+  setOpenPledgeId 
+}: PledgeAccordionProps) {
+  const [isOpen, setIsOpen] = useState(defaultOpen);
+  
+  // 외부에서 openPledgeId가 변경될 때 해당 아코디언을 열거나 닫음
+  useEffect(() => {
+    if (openPledgeId !== undefined) {
+      setIsOpen(openPledgeId === pledge.id);
+    }
+  }, [openPledgeId, pledge.id]);
+
+  const toggleAccordion = () => {
+    // 외부 상태 관리가 있는 경우
+    if (setOpenPledgeId) {
+      // 이미 열려있는 경우 닫기
+      if (isOpen) {
+        setOpenPledgeId(null);
+      } else {
+        // 닫혀있는 경우 열기
+        setOpenPledgeId(pledge.id);
+      }
+    } else {
+      // 외부 상태 관리가 없는 경우 내부 상태로만 토글
+      setIsOpen(!isOpen);
+    }
+  };
 
   return (
     <div className={`accordion border border-gray-200 rounded-lg ${isOpen ? 'accordion-open' : ''}`}>
       <div 
         className="accordion-header flex justify-between items-center p-4 cursor-pointer"
-        onClick={() => setIsOpen(!isOpen)}
+        onClick={toggleAccordion}
       >
         <h3 className="font-semibold text-lg">{pledge.title}</h3>
         <div className="w-6 h-6 flex items-center justify-center">

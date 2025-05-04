@@ -19,10 +19,16 @@ export default function Header() {
               공약 비교
             </Link>
             <Link 
-              href="/about" 
+              href="/voting-guide" 
               className="text-text-primary hover:text-primary transition-colors duration-200 font-medium"
             >
-              알고투표 소개
+              후보자 AI 
+            </Link>
+            <Link 
+              href="/voting-info" 
+              className="text-text-primary hover:text-primary transition-colors duration-200 font-medium"
+            >
+              투표 방법
             </Link>
           </nav>
         </div>

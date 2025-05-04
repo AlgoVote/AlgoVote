@@ -19,7 +19,7 @@ export const candidates: Candidate[] = [
   },
   {
     id: 'han-donghun',
-    name: '한동훈',
+    name: '김문수',
     party: '국민의힘',
     age: 67,
     birthplace: '경상남도 창녕군',
