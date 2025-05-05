@@ -19,7 +19,7 @@ export default function Header() {
               공약 비교
             </Link>
             <Link 
-              href="/voting-guide" 
+              href="/chatbot" 
               className="text-text-primary hover:text-primary transition-colors duration-200 font-medium"
             >
               후보자 AI 

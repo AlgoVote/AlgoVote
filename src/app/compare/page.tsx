@@ -101,17 +101,6 @@ export default function Compare() {
           ],
           source: '후보 공식 정책집 (PDF)'
         },
-        {
-          candidate: '안철수',
-          summary: '디지털 경제 중심 청년 일자리 확대',
-          details: [
-            '디지털 전환 일자리 50만개 창출',
-            '스타트업 청년 고용 지원금 확대',
-            'AI 및 빅데이터 분야 전문 인력 양성',
-            '청년 창업 특구 10개 조성'
-          ],
-          source: '후보 공식 정책집 (PDF)'
-        }
       ]
     },
     {
@@ -265,7 +254,7 @@ export default function Compare() {
   return (
     <div className="bg-background min-h-screen">
       <main className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 py-12 fade-in">
-        <h1 className="text-3xl font-bold text-text-primary text-center mb-10">공약 비교하기</h1>
+        <h1 className="text-3xl font-bold text-text-primary text-start mb-10">공약 비교하기</h1>
         
         {/* 비교 기준 선택 영역 */}
         <div className="mb-8 bg-white rounded-2xl shadow-sm p-6">

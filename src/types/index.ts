@@ -46,4 +46,21 @@ export interface TeamMember {
   role: string;
   quote: string;
   image?: string;
+}
+
+// 챗봇 관련 타입 정의
+export interface ChatMessage {
+  id: string;
+  role: 'user' | 'bot';
+  content: string;
+  timestamp: Date;
+  candidateId?: string; // 챗봇 메시지일 경우 어떤 후보의 메시지인지
+  sourceUrl?: string; // 공약 출처 URL
+  sourceDescription?: string; // 공약 출처 설명
+}
+
+export interface SuggestedQuestion {
+  id: string;
+  text: string;
+  candidateId?: string; // 특정 후보에게만 적용되는 질문인 경우
 } 

@@ -50,17 +50,6 @@ export const candidates: Candidate[] = [
     slogan: '불평등 해소와 정의로운 사회 실현',
     profileImage: '/images/candidates/han-ducksoo.jpg',
   },
-  {
-    id: 'ahn-cheolsoo',
-    name: '안철수',
-    party: '국민의당',
-    age: 60,
-    birthplace: '부산광역시',
-    education: ['서울대학교 의과대학 졸업', 'KAIST 박사'],
-    career: ['제20대 국민의당 대선 후보', '전 바른미래당 대표', '전 서울시장 후보'],
-    slogan: '과학기술 혁신으로 대한민국 도약',
-    profileImage: '/images/candidates/ahn-cheolsoo.jpg',
-  }
 ];
 
 /**
