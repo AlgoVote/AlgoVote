@@ -1,10 +1,9 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { nanoid } from 'nanoid';
 import Image from 'next/image';
 import { candidates } from '@/data/candidates';
-import { suggestedQuestions } from '@/data/suggested-questions';
 import { ChatMessage } from '@/types';
 
 export default function ChatbotPage() {
@@ -149,7 +148,7 @@ export default function ChatbotPage() {
                   <div>
                     <h3 className="text-xl font-bold mb-1">{candidate.name}</h3>
                     <p className="text-sm text-[#6B7280] mb-1">
-                      "{candidate.slogan}"
+                      &ldquo;{candidate.slogan}&rdquo;
                     </p>
                     <p className="text-xs text-[#6B7280]">
                       안녕하세요, 윤석열입니다. 궁금한 정책이 있다면 물어보세요!
