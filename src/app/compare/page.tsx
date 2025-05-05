@@ -3,58 +3,23 @@
 import React from 'react';
 import Image from 'next/image';
 import ChatBotButton from '../../components/ui/ChatBotButton';
-import { candidates, comparisonData, categoryDescriptions } from '@/data/candidates';
+import { candidates } from '@/data/candidates';
 
 export default function Compare() {
-  const [tooltipVisible, setTooltipVisible] = React.useState<string | null>(null);
   const [viewType, setViewType] = React.useState<'category' | 'region'>('category');
   const [selectedCategory, setSelectedCategory] = React.useState('economy');
   const [selectedRegion, setSelectedRegion] = React.useState('capital');
   const [expandedItems, setExpandedItems] = React.useState<Record<string, boolean>>({});
 
-  // 항상 모든 후보를 선택한 상태로 설정 (4명)
-  const allCandidateIds = candidates.slice(0, 4).map(candidate => candidate.id);
-
-  const showTooltip = (category: string) => {
-    setTooltipVisible(category);
-  };
-
-  const hideTooltip = () => {
-    setTooltipVisible(null);
-  };
-
   const handleViewTypeChange = (type: 'category' | 'region') => {
     setViewType(type);
   };
 
-  const toggleItem = (id: string) => {
+  const toggleItemExpand = (itemId: string) => {
     setExpandedItems(prev => ({
       ...prev,
-      [id]: !prev[id]
+      [itemId]: !prev[itemId]
     }));
-    
-    // DOM 조작을 위한 setTimeout 추가
-    setTimeout(() => {
-      const toggleButtons = document.querySelectorAll('.toggle-btn');
-      toggleButtons.forEach(button => {
-        const content = button.nextElementSibling as HTMLElement;
-        if (content && content.classList.contains('toggle-content')) {
-          const buttonElement = button as HTMLElement;
-          const span = buttonElement.querySelector('span');
-          const icon = buttonElement.querySelector('i');
-          
-          if (content.style.display === 'block') {
-            content.style.display = 'none';
-            if (span) span.textContent = '더 보기';
-            if (icon) icon.className = 'ri-arrow-down-s-line';
-          } else {
-            content.style.display = 'block';
-            if (span) span.textContent = '접기';
-            if (icon) icon.className = 'ri-arrow-up-s-line';
-          }
-        }
-      });
-    }, 0);
   };
 
   // 초기화 함수 추가
@@ -432,14 +397,15 @@ export default function Compare() {
                           <p>{policy.summary}</p>
                           <div className="mt-2">
                             <button
-                              className="toggle-btn flex items-center text-sm text-primary"
+                              className="flex items-center text-sm text-primary"
+                              onClick={() => toggleItemExpand(`${item.id}-${index}`)}
                             >
-                              <span>더 보기</span>
+                              <span>{expandedItems[`${item.id}-${index}`] ? '접기' : '더 보기'}</span>
                               <div className="w-5 h-5 flex items-center justify-center ml-1">
-                                <i className="ri-arrow-down-s-line"></i>
+                                <i className={expandedItems[`${item.id}-${index}`] ? 'ri-arrow-up-s-line' : 'ri-arrow-down-s-line'}></i>
                               </div>
                             </button>
-                            <div className="toggle-content mt-2 text-sm text-gray-600">
+                            <div className={`mt-2 text-sm text-gray-600 ${expandedItems[`${item.id}-${index}`] ? 'block' : 'hidden'}`}>
                               {policy.details.map((detail, detailIndex) => (
                                 <p key={detailIndex}>- {detail}</p>
                               ))}

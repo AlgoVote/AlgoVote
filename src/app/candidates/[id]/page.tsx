@@ -274,181 +274,204 @@ const getMockCandidateData = (candidateId: string): {
 };
 
 export default function CandidateDetail() {
-  // useParams 훅을 사용하여 params 가져오기
+  const [selectedPledge, setSelectedPledge] = useState<string | null>(null);
+  const [activeTab, setActiveTab] = useState<'pledges' | 'statements' | 'qna'>('pledges');
   const params = useParams();
-  const id = params.id as string;
+  const candidateId = params.id as string;
   
-  // candidateId를 사용하여 데이터 가져오기
-  const { candidate, pledges, statements, qnas } = getMockCandidateData(id);
-  
-  // 현재 열려있는 공약 ID 상태 관리
-  const [openPledgeId, setOpenPledgeId] = useState<string | null>(null);
-  
-  // 공약 상세 버튼 클릭 핸들러
-  const handlePledgeDetailClick = (pledgeId: string) => {
-    // 해당 공약 아코디언 열기
-    setOpenPledgeId(pledgeId);
-    
-    // 상세 공약 섹션으로 스크롤
-    document.getElementById('detailed-pledges')?.scrollIntoView({ behavior: 'smooth' });
+  // In a real app, this would be a data fetch from Supabase
+  const { candidate, pledges } = getMockCandidateData(candidateId);
+
+  const handleTabChange = (tab: 'pledges' | 'statements' | 'qna') => {
+    setActiveTab(tab);
   };
-  
+
   return (
-    <div className="bg-background min-h-screen">
-      <main className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 py-8 fade-in">
-        {/* 후보자 기본 정보 섹션 */}
-        <section className="candidate-card bg-white rounded-2xl p-6 mb-8 border border-gray-100 transition-shadow">
-          <div className="flex flex-col md:flex-row md:items-start gap-8">
-            <div className="w-48 h-48 rounded-2xl overflow-hidden flex-shrink-0 mx-auto md:mx-0">
-              <img
-                src={candidate.profileImage}
-                alt={`${candidate.name} 후보`}
-                className="w-full h-full object-cover"
-              />
-            </div>
-            <div className="flex-grow">
-              <h1 className="text-3xl font-bold mb-2">{candidate.name}</h1>
-              <div className="flex flex-col sm:flex-row sm:items-center text-gray-500 mb-4">
-                <span className="mr-4">{candidate.party}</span>
-                <span className="hidden sm:block mx-2">|</span>
-                <span>서울특별시 강남구 제1선거구</span>
-              </div>
-              <div className="border-t border-gray-200 pt-4">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  <div className="flex flex-col">
-                    <span className="text-gray-500 text-sm">출생</span>
-                    <span>{candidate.birthplace} ({candidate.age}세)</span>
-                  </div>
-                  <div className="flex flex-col">
-                    <span className="text-gray-500 text-sm">학력</span>
-                    <span>{candidate.education[0]}</span>
-                  </div>
-                  <div className="flex flex-col">
-                    <span className="text-gray-500 text-sm">경력</span>
-                    <span>{candidate.career[0]}</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* 핵심 슬로건 섹션 */}
-        <section className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl p-8 mb-8 text-center">
-          <h2 className="text-2xl md:text-3xl font-bold text-text-primary mb-2">
-            &quot;{candidate.slogan}&quot;
-          </h2>
-          <p className="text-text-secondary">국민과 함께 더 나은 미래를 만들어 나가겠습니다</p>
-        </section>
-
-        {/* 10대 핵심 공약 섹션 */}
-        <section className="bg-white rounded-2xl shadow-sm p-6 mb-8">
-          <h2 className="text-2xl font-bold mb-6">10대 핵심 공약</h2>
-          <div className="space-y-4">
-            {pledges.slice(0, 3).map((pledge) => (
-              <div key={pledge.id} className="pledge-card p-4 border border-gray-100 rounded-lg hover:bg-gray-50 transition-all">
-                <div className="flex">
-                  <div className="flex-shrink-0 w-8 h-8 bg-primary text-white rounded-full flex items-center justify-center mr-3">
-                    <span className="font-semibold">{pledge.order}</span>
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-lg">{pledge.title}</h3>
-                    <p className="text-text-secondary mt-1">{pledge.summary}</p>
-                    <button 
-                      className="pledge-detail-btn text-primary border border-primary rounded-button px-3 py-1 text-sm inline-flex items-center mt-2 whitespace-nowrap"
-                      onClick={() => handlePledgeDetailClick(pledge.id)}
-                    >
-                      <span>공약 전문 보기</span>
-                      <i className="ri-arrow-right-line ml-1"></i>
-                    </button>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-          
-          <div className="mt-6 text-center">
-            <button 
-              className="bg-primary text-white py-2 px-6 rounded-button font-medium hover:bg-opacity-90 transition-all whitespace-nowrap"
-              onClick={() => document.getElementById('detailed-pledges')?.scrollIntoView({ behavior: 'smooth' })}
-            >
-              10대 공약 전체 보기
-            </button>
-          </div>
-        </section>
-
-        {/* 세부 공약 상세 섹션 */}
-        <section id="detailed-pledges" className="bg-white rounded-2xl shadow-sm p-6 mb-8">
-          <h2 className="text-2xl font-bold mb-6">세부 공약 상세</h2>
-          
-          <div className="space-y-4">
-            {pledges.map((pledge) => (
-              <PledgeAccordion 
-                key={pledge.id} 
-                pledge={pledge} 
-                openPledgeId={openPledgeId}
-                setOpenPledgeId={setOpenPledgeId}
-              />
-            ))}
-          </div>
-        </section>
-
-        {/* 최근 발언 요약 섹션 */}
-        {/* <section className="bg-white rounded-2xl shadow-sm p-6 mb-8">
-          <h2 className="text-2xl font-bold mb-6">최근 발언 요약</h2>
-          <div className="space-y-6">
-            {statements.map((statement) => (
-              <div key={statement.id} className="bg-gray-50 p-5 rounded-lg border-l-4 border-primary">
-                <p className="italic text-text-primary">{statement.content}</p>
-                <p className="text-sm text-text-secondary mt-3">- {statement.date}, {statement.source}</p>
-              </div>
-            ))}
-          </div>
-        </section> */}
-
-        {/* 후보 Q&A 섹션 */}
-        {/* <section className="bg-white rounded-2xl shadow-sm p-6 mb-8">
-          <h2 className="text-2xl font-bold mb-6">후보 Q&A</h2>
-          <div className="space-y-6">
-            {qnas.map((qna) => (
-              <div key={qna.id} className="p-5 border border-gray-100 rounded-lg">
-                <div className="flex items-start mb-4">
-                  <div className="w-8 h-8 bg-primary text-white rounded-full flex items-center justify-center mr-3 flex-shrink-0">
-                    <span className="font-semibold">Q</span>
-                  </div>
-                  <p className="font-medium text-text-primary">{qna.question}</p>
-                </div>
-                <div className="flex items-start pl-11">
-                  <div className="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center mr-3 flex-shrink-0">
-                    <span className="font-semibold text-text-secondary">A</span>
-                  </div>
-                  <p className="text-text-secondary">{qna.answer}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </section> */}
-
-        {/* 하단 버튼 영역 */}
-        <div className="flex flex-col sm:flex-row justify-center gap-4 mt-10 mb-6">
-          <Link 
-            href="/compare" 
-            className="bg-primary text-white py-3 px-8 rounded-button text-center font-medium whitespace-nowrap transition-all hover:bg-opacity-90 hover:scale-102"
-          >
-            비교하기
+    <div className="bg-background min-h-screen pb-16">
+      <div className="max-w-4xl mx-auto px-4 pt-8">
+        {/* 상단 내비게이션 */}
+        <div className="flex justify-between items-center mb-8">
+          <Link href="/" className="text-primary font-medium flex items-center">
+            <i className="ri-arrow-left-line mr-1"></i>
+            후보 목록으로
           </Link>
-          <Link 
-            href="/" 
-            className="border border-primary text-primary py-3 px-8 rounded-button text-center font-medium whitespace-nowrap transition-all hover:bg-primary hover:bg-opacity-5"
-          >
-            뒤로가기
+          <Link href="/compare" className="bg-primary text-white py-2 px-6 rounded-button font-medium transition-all hover:bg-opacity-90">
+            다른 후보와 비교하기
           </Link>
         </div>
         
-        <div className="text-center text-xs text-text-secondary mb-10">
-          정보 출처: <a href="https://www.nec.go.kr" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">중앙선거관리위원회</a>, 2025.04.27 기준
+        {/* 후보자 프로필 */}
+        <div className="bg-white rounded-lg shadow-sm p-6 mb-8">
+          <div className="flex flex-col md:flex-row md:items-start">
+            <div className="md:mr-8 w-full md:w-1/4 mb-6 md:mb-0 flex justify-center md:justify-start">
+              {candidate.profileImage && (
+                <Image
+                  src={candidate.profileImage}
+                  alt={candidate.name}
+                  width={200}
+                  height={200}
+                  className="rounded-full border-4 border-white shadow-md w-40 h-40 md:w-full md:h-auto object-cover"
+                />
+              )}
+            </div>
+            
+            <div className="flex-1">
+              <div className="flex items-center mb-2">
+                <h1 className="text-3xl font-bold mr-3">{candidate.name}</h1>
+                <span className="bg-gray-100 text-gray-700 text-sm py-1 px-3 rounded-full">
+                  {candidate.party}
+                </span>
+              </div>
+              
+              <blockquote className="border-l-4 border-primary pl-4 italic text-gray-600 my-4">
+                &ldquo;{candidate.slogan}&rdquo;
+              </blockquote>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4 mt-6">
+                <div>
+                  <h3 className="text-sm text-gray-500 mb-1">나이</h3>
+                  <p>{candidate.age}세</p>
+                </div>
+                <div>
+                  <h3 className="text-sm text-gray-500 mb-1">출생지</h3>
+                  <p>{candidate.birthplace}</p>
+                </div>
+                <div>
+                  <h3 className="text-sm text-gray-500 mb-1">학력</h3>
+                  <ul className="list-disc list-inside pl-0 text-sm">
+                    {candidate.education.map((edu, index) => (
+                      <li key={index} className="mb-1">{edu}</li>
+                    ))}
+                  </ul>
+                </div>
+                <div>
+                  <h3 className="text-sm text-gray-500 mb-1">주요 경력</h3>
+                  <ul className="list-disc list-inside pl-0 text-sm">
+                    {candidate.career.map((career, index) => (
+                      <li key={index} className="mb-1">{career}</li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+              
+              {candidate.websiteUrl && (
+                <a 
+                  href={candidate.websiteUrl} 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="inline-flex items-center text-primary mt-6"
+                >
+                  <span>공식 웹사이트 방문</span>
+                  <div className="w-5 h-5 flex items-center justify-center ml-1">
+                    <i className="ri-external-link-line"></i>
+                  </div>
+                </a>
+              )}
+            </div>
+          </div>
         </div>
-      </main>
+        
+        {/* 탭 내비게이션 */}
+        <div className="border-b border-gray-200 mb-8">
+          <div className="flex space-x-8">
+            <button
+              className={`pb-4 text-lg font-medium relative ${
+                activeTab === 'pledges'
+                  ? 'text-primary'
+                  : 'text-gray-500 hover:text-gray-800'
+              }`}
+              onClick={() => handleTabChange('pledges')}
+            >
+              10대 공약
+              {activeTab === 'pledges' && (
+                <span className="absolute bottom-0 left-0 w-full h-0.5 bg-primary"></span>
+              )}
+            </button>
+            <button
+              className={`pb-4 text-lg font-medium relative ${
+                activeTab === 'statements'
+                  ? 'text-primary'
+                  : 'text-gray-500 hover:text-gray-800'
+              }`}
+              onClick={() => handleTabChange('statements')}
+            >
+              주요 발언
+              {activeTab === 'statements' && (
+                <span className="absolute bottom-0 left-0 w-full h-0.5 bg-primary"></span>
+              )}
+            </button>
+            <button
+              className={`pb-4 text-lg font-medium relative ${
+                activeTab === 'qna'
+                  ? 'text-primary'
+                  : 'text-gray-500 hover:text-gray-800'
+              }`}
+              onClick={() => handleTabChange('qna')}
+            >
+              Q&A
+              {activeTab === 'qna' && (
+                <span className="absolute bottom-0 left-0 w-full h-0.5 bg-primary"></span>
+              )}
+            </button>
+          </div>
+        </div>
+        
+        {/* 공약 목록 - 10대 공약 */}
+        {activeTab === 'pledges' && (
+          <div>
+            <h2 className="text-2xl font-bold mb-6">{candidate.name}의 10대 공약</h2>
+            
+            <div className="space-y-4">
+              {pledges
+                .sort((a, b) => a.order - b.order)
+                .map(pledge => (
+                  <PledgeAccordion
+                    key={pledge.id}
+                    pledge={pledge}
+                    openPledgeId={selectedPledge}
+                    setOpenPledgeId={setSelectedPledge}
+                  />
+                ))}
+            </div>
+          </div>
+        )}
+
+        {/* 주요 발언 */}
+        {activeTab === 'statements' && (
+          <div>
+            <h2 className="text-2xl font-bold mb-6">{candidate.name}의 주요 발언</h2>
+            <div className="text-center py-12">
+              <Image 
+                src="/images/coming-soon.svg" 
+                alt="준비 중입니다" 
+                width={200} 
+                height={200} 
+                className="mx-auto mb-6"
+              />
+              <h3 className="text-xl font-medium text-gray-700 mb-2">준비 중입니다</h3>
+              <p className="text-gray-500">해당 콘텐츠는 현재 준비 중입니다. 빠른 시일 내에 제공하겠습니다.</p>
+            </div>
+          </div>
+        )}
+
+        {/* Q&A */}
+        {activeTab === 'qna' && (
+          <div>
+            <h2 className="text-2xl font-bold mb-6">{candidate.name}에 대한 Q&A</h2>
+            <div className="text-center py-12">
+              <Image 
+                src="/images/coming-soon.svg" 
+                alt="준비 중입니다" 
+                width={200} 
+                height={200} 
+                className="mx-auto mb-6"
+              />
+              <h3 className="text-xl font-medium text-gray-700 mb-2">준비 중입니다</h3>
+              <p className="text-gray-500">해당 콘텐츠는 현재 준비 중입니다. 빠른 시일 내에 제공하겠습니다.</p>
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   );
 } 
