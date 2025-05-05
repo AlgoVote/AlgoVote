@@ -91,7 +91,7 @@ export default function Compare() {
           source: '후보 공식 정책집 (PDF)'
         },
         {
-          candidate: '심상정',
+          candidate: '한덕수',
           summary: '공공 부문 중심 양질의 청년 일자리 확대',
           details: [
             '공공기관 청년 의무 고용 비율 30% 확대',
@@ -141,7 +141,7 @@ export default function Compare() {
           source: '후보 공식 정책집 (PDF)'
         },
         {
-          candidate: '심상정',
+          candidate: '한덕수',
           summary: '노동친화적 중소기업 지원 확대',
           details: [
             '중소기업 근로시간 단축 지원금 확대',
@@ -191,7 +191,7 @@ export default function Compare() {
           source: '후보 공식 정책집 (PDF)'
         },
         {
-          candidate: '심상정',
+          candidate: '한덕수',
           summary: '주거 공공성 강화 및 투기 근절',
           details: [
             '공공 임대주택 100만호 확대',
@@ -240,7 +240,7 @@ export default function Compare() {
         ]
       },
       {
-        candidate: '심상정',
+        candidate: '한덕수',
         policies: [
           { icon: 'ri-building-4-line', text: '수도권 공공임대주택 확대' },
           { icon: 'ri-route-line', text: '수도권 대중교통 공공성 강화' },

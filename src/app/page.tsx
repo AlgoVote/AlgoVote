@@ -5,7 +5,7 @@ import { candidates } from '@/data/candidates';
 
 export default function Home() {
   // 주요 후보자 3명만 표시
-  const mainCandidates = candidates.slice(0, 3);
+  const mainCandidates = candidates.slice(0, 4);
   
   return (
     <div className="bg-white min-h-screen">
@@ -29,7 +29,7 @@ export default function Home() {
       <section className="py-16 px-4 sm:px-6 lg:px-8">
         <div className="container mx-auto">
           <h2 className="text-3xl font-bold text-text-primary mb-10 text-center">제21대 대통령 선거 주요 후보자</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-6 md:gap-8">
             {mainCandidates.map((candidate) => (
               <CandidateCard key={candidate.id} candidate={candidate} />
             ))}
