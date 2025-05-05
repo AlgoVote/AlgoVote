@@ -1,36 +1,51 @@
-# AlgoVote
-정확한 정보를 바탕으로, 현명한 선택을
+# 🗳️ 알고투표 (AlgoVote)
 
-## 소개
-AlgoVote는 객관적인 정보를 통해 유권자들이 편향 없이 후보자를 비교하고 현명한 선택을 할 수 있도록, AI가 공약을 분석해 주는 플랫폼입니다. 정확한 정보로 민주주의의 가치를 높입니다.
+> "정책으로 알고, 공약으로 투표하자."
 
-## 시작하기
+**알고투표**는 이미지나 뉴스 프레임이 아닌,  
+각 후보자의 **정책과 공약을 바탕으로 현명한 투표**를 할 수 있도록 돕는 웹 서비스입니다.  
+정치적 중립성과 정보의 균형을 목표로 하며, **RAG 기반 챗봇 기술을 통해 공약 질의응답**도 지원합니다.
 
-개발 서버를 실행하세요:
+## 🚀 주요 기능
+
+### 1. 공약 비교 페이지 (`/compare`)
+- 정책 카테고리(경제, 복지 등) 또는 지역 기준(수도권, 영남 등)으로 **후보별 공약 비교**
+- 카테고리 선택 → 정책 항목별 공약 내용 비교
+- 공약 "요약 보기 / 더 보기" 토글
+- 출처 및 링크 강조
+
+### 2. 공약 챗봇 페이지 (`/chatbot`)
+- 사용자가 원하는 후보와 "가상 대화" 형식으로 공약을 질의응답
+- **RAG (Retrieval-Augmented Generation)** 기반 응답 시스템
+- 질문 예시 버튼, 출처 강조, 정책 요약 정리 제공
+- 후보별 말투/컨셉 기반 페르소나 응답
+
+## 🧠 기술 스택
+
+| 분야 | 기술 |
+|------|------|
+| 프론트엔드 | Next.js 14, Tailwind CSS |
+| 백엔드 | Supabase (PostgreSQL + Vector DB), OpenAI API |
+| 챗봇 AI | GPT-4-turbo + RAG (LangChain-like 구조) |
+| 배포 | Vercel |
+| 디자인 | Figma, Notion 협업 |
+
+## 📦 프로젝트 구조
 
 ```bash
-npm run dev
-# 또는
-yarn dev
-# 또는
-pnpm dev
-# 또는
-bun dev
-```
-
-브라우저에서 [http://localhost:3000](http://localhost:3000)을 열어 결과를 확인하세요.
-
-`app/page.tsx` 파일을 수정하여 페이지 편집을 시작할 수 있습니다. 파일을 편집하면 페이지가 자동으로 업데이트됩니다.
-
-## 기술 스택
-
-- Next.js 14
-- TypeScript
-- TailwindCSS
-- Supabase
-
-## 배포
-
-Next.js 앱을 배포하는 가장 쉬운 방법은 Next.js의 제작자가 만든 [Vercel 플랫폼](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme)을 사용하는 것입니다.
-
-자세한 내용은 [Next.js 배포 문서](https://nextjs.org/docs/app/building-your-application/deploying)를 참조하세요.
+.
+├── pages/
+│   ├── index.tsx         # 메인페이지 - 후보 카드 리스트
+│   ├── compare.tsx       # 공약 비교 페이지
+│   └── chatbot.tsx       # 후보별 챗봇 인터페이스
+├── components/
+│   ├── CandidateCard.tsx
+│   ├── ChatInterface.tsx
+│   └── ComparisonTable.tsx
+├── lib/
+│   ├── supabase.ts       # Supabase 연결
+│   └── openai.ts         # RAG + GPT 연결
+├── public/
+│   └── assets/
+├── styles/
+└── README.md
